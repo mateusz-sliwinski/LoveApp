@@ -1,8 +1,8 @@
 DEBUG = False
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dates',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',

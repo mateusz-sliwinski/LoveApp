@@ -1,11 +1,12 @@
 DEBUG = True
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': '',
+
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dates',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    },
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
 }
