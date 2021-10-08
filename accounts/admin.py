@@ -2,4 +2,15 @@
 
 from django.contrib import admin
 
-# Register your models here.
+from accounts.models import CustomUser, PhotoUser
+
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):  # noqa D101
+    pass
+
+
+@admin.register(PhotoUser)
+class PhotoUserAdmin(admin.ModelAdmin):  # noqa D101
+    pass
+

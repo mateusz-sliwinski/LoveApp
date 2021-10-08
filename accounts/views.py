@@ -1,4 +1,9 @@
 """Views.py files."""
 from django.shortcuts import render
 
-# Create your views here.
+class MySignupView(FormView):  # noqa D101
+    template_name = 'account/signup.html'
+
+class MyLoginupView(LoginView):  # noqa D101
+    template_name = 'account/login.html'
+
