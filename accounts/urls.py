@@ -1,5 +1,7 @@
 """Urls.py files."""
-from django.urls import path, include
+# Django
+from django.urls import include
+from django.urls import path
 
 urlpatterns = [
     path('/accounts/', include('allauth.urls')),

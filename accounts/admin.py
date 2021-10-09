@@ -1,8 +1,11 @@
 """Admin.py files."""
 
+# Django
 from django.contrib import admin
 
-from accounts.models import CustomUser, PhotoUser
+# Project
+from accounts.models import CustomUser
+from accounts.models import PhotoUser
 
 
 @admin.register(CustomUser)
@@ -13,4 +16,3 @@ class CustomUserAdmin(admin.ModelAdmin):  # noqa D101
 @admin.register(PhotoUser)
 class PhotoUserAdmin(admin.ModelAdmin):  # noqa D101
     pass
-

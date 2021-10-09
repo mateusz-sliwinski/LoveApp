@@ -5,8 +5,13 @@ from django import forms
 # 3rd-party
 from allauth.account.forms import SignupForm
 
-from accounts.models import CustomUser, PhotoUser
+# Project
+from accounts.models import CustomUser
+from accounts.models import PhotoUser
+
+# Local
 from .utils import time_today
+
 
 class MySignUpForm(SignupForm):  # noqa D101
     first_name = forms.CharField(label='First name', max_length=100)
@@ -37,14 +42,14 @@ class MySignUpForm(SignupForm):  # noqa D101
         user.save()
 
         context = {
-            'count_users': user.id
+            'count_users': user.id,
         }
 
         user_photo = PhotoUser(
             date_add=time_today(),
             photo=photo,
             descriptions=descriptions,
-            custom_user=CustomUser.objects.get(id=context['count_users'])
+            custom_user=CustomUser.objects.get(id=context['count_users']),
         )
         user_photo.save()
 

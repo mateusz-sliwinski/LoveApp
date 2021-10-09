@@ -1,9 +1,10 @@
 """Models.py files."""
+# Django
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser): # noqa D101
     email = models.EmailField(max_length=254)
     premium = models.BooleanField(
         blank=True,
@@ -20,7 +21,7 @@ class CustomUser(AbstractUser):
         return f'{self.email} {self.last_name}'
 
 
-class PhotoUser(models.Model):
+class PhotoUser(models.Model): # noqa D101
     date_add = models.DateField()
     photo = models.ImageField(upload_to='media', null=True, blank=True)
     descriptions = models.TextField(blank=True)
