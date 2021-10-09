@@ -17,3 +17,5 @@ class PhotoUser(models.Model):
     photo = models.ImageField(upload_to='media', null=True, blank=True)
     descriptions = models.TextField(blank=True)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+

@@ -14,8 +14,6 @@ class MySignUpForm(SignupForm):  # noqa D101
     city = forms.CharField(label='City', max_length=150)
     photo = forms.ImageField()
     descriptions = forms.CharField(widget=forms.Textarea, label='descriptions photo')
-    email = forms.EmailField(max_length=45)
-
 
     class Meta:  # noqa D106
         model = CustomUser
@@ -31,21 +29,16 @@ class MySignUpForm(SignupForm):  # noqa D101
         first_name = self.cleaned_data['first_name']
         last_name = self.cleaned_data['last_name']
         city = self.cleaned_data['city']
-        username = self.cleaned_data['username']
-        email = self.cleaned_data['email']
 
-        custom_user = CustomUser(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            city=city,
-            email=email,
-        )
-        custom_user.save()
+        user = super().save(request)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.city = city
+        user.save()
 
-        context = {}
-        count_users = CustomUser.objects.all().count()
-        context['count_users'] = count_users
+        context = {
+            'count_users': user.id
+        }
 
         user_photo = PhotoUser(
             date_add=time_today(),
@@ -53,5 +46,6 @@ class MySignUpForm(SignupForm):  # noqa D101
             descriptions=descriptions,
             custom_user=CustomUser.objects.get(id=context['count_users'])
         )
-        print('zapisało')
         user_photo.save()
+
+        return user

@@ -141,6 +141,12 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 ACCOUNT_FORMS = {
     'signup': 'accounts.forms.MySignUpForm',
 }
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
