@@ -35,7 +35,6 @@ class MySignUpForm(SignupForm):  # noqa D101
         last_name = self.cleaned_data['last_name']
         city = self.cleaned_data['city']
 
-        print(photo)
         user = super().save(request)
         user.first_name = first_name
         user.last_name = last_name
