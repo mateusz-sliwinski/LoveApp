@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):  # noqa D101
 
 class PhotoUser(models.Model):  # noqa D101
     date_add = models.DateField()
-    photo = models.ImageField(upload_to='media', null=True, blank=True)
+    photo = models.ImageField(upload_to='photo', null=True, blank=True)
     descriptions = models.TextField(blank=True)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
