@@ -17,8 +17,8 @@ class MySignUpForm(SignupForm):  # noqa D101
     first_name = forms.CharField(label='First name', max_length=100)
     last_name = forms.CharField(label='Last name', max_length=100)
     city = forms.CharField(label='City', max_length=150)
-    photo = forms.ImageField()
-    descriptions = forms.CharField(widget=forms.Textarea, label='descriptions photo')
+    photo = forms.ImageField(required=False)
+    descriptions = forms.CharField(widget=forms.Textarea, label='descriptions photo', required=False)
 
     class Meta:  # noqa D106
         model = CustomUser
@@ -35,22 +35,26 @@ class MySignUpForm(SignupForm):  # noqa D101
         last_name = self.cleaned_data['last_name']
         city = self.cleaned_data['city']
 
+        print(photo)
         user = super().save(request)
         user.first_name = first_name
         user.last_name = last_name
         user.city = city
         user.save()
 
-        context = {
-            'count_users': user.id,
-        }
+        if photo is None:
+            pass
+        else:
+            context = {
+                'count_users': user.id,
+            }
 
-        user_photo = PhotoUser(
-            date_add=time_today(),
-            photo=photo,
-            descriptions=descriptions,
-            custom_user=CustomUser.objects.get(id=context['count_users']),
-        )
-        user_photo.save()
+            user_photo = PhotoUser(
+                date_add=time_today(),
+                photo=photo,
+                descriptions=descriptions,
+                custom_user=CustomUser.objects.get(id=context['count_users']),
+            )
+            user_photo.save()
 
         return user
