@@ -1,6 +1,10 @@
 """Models.py files."""
 # Django
+from datetime import date
+
+from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -11,14 +15,17 @@ class CustomUser(AbstractUser):  # noqa D101
         default=False,
     )
     city = models.CharField(max_length=100)
+    birth_date = models.DateField(blank=True, null=True)
 
     class Meta:  # noqa: D106
-
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
     def __str__(self):  # noqa: D105
-        return f'{self.email} {self.last_name}'
+        today = date.today()
+        age = relativedelta(today, self.birth_date)
+
+        return f'{self.email} {self.last_name} {age.years}'
 
 
 class PhotoUser(models.Model):  # noqa D101
@@ -34,3 +41,13 @@ class PhotoUser(models.Model):  # noqa D101
 
     def __str__(self):  # noqa: D105
         return f'{self.custom_user.first_name} {self.custom_user.last_name} {self.photo}'
+
+
+class Preferences(models.Model):
+    age = models.IntegerField(
+        default=1,
+        validators=[
+            MaxValueValidator(200),
+            MinValueValidator(18)
+        ]
+     )

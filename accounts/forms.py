@@ -1,16 +1,19 @@
 """Forms.py file."""
 # Django
+import datetime
+
 from django import forms
 
 # 3rd-party
 from allauth.account.forms import SignupForm
-
 # Project
+from urllib3 import fields
+
 from accounts.models import CustomUser
 from accounts.models import PhotoUser
 
 # Local
-from .utils import time_today
+from .utils import time_today, legitimate_age
 
 
 class MySignUpForm(SignupForm):  # noqa D101
@@ -19,6 +22,7 @@ class MySignUpForm(SignupForm):  # noqa D101
     city = forms.CharField(label='City', max_length=150)
     photo = forms.ImageField(required=False)
     descriptions = forms.CharField(widget=forms.Textarea, label='descriptions photo', required=False)
+    date = forms.DateField(initial=datetime.date.today, widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
     class Meta:  # noqa D106
         model = CustomUser
@@ -34,16 +38,17 @@ class MySignUpForm(SignupForm):  # noqa D101
         first_name = self.cleaned_data['first_name']
         last_name = self.cleaned_data['last_name']
         city = self.cleaned_data['city']
+        date = self.cleaned_data['date']
 
         user = super().save(request)
         user.first_name = first_name
         user.last_name = last_name
         user.city = city
+        user.birth_date = date
         user.save()
 
-        if photo is None:
-            pass
-        else:
+        if photo is True:
+
             context = {
                 'count_users': user.id,
             }
@@ -55,5 +60,8 @@ class MySignUpForm(SignupForm):  # noqa D101
                 custom_user=CustomUser.objects.get(id=context['count_users']),
             )
             user_photo.save()
+
+        else:
+            pass
 
         return user
