@@ -45,9 +45,10 @@ class PhotoUser(models.Model):  # noqa D101
 
 class Preferences(models.Model):
     age = models.IntegerField(
-        default=1,
+        default=18,
         validators=[
             MaxValueValidator(200),
             MinValueValidator(18)
         ]
      )
+    tag = models.Choices() # tags dla użytkownika bez duplikatorów
