@@ -9,7 +9,7 @@ from allauth.account.forms import SignupForm
 # Project
 from urllib3 import fields
 
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Preferences
 from accounts.models import PhotoUser
 
 # Local
@@ -65,3 +65,24 @@ class MySignUpForm(SignupForm):  # noqa D101
             pass
 
         return user
+
+
+categories = (
+    ('A', 'A'),
+    ('B', 'B'),
+    ('C', 'C'),
+)
+
+
+class PreferencesForm(forms.ModelForm):
+    type = forms.ChoiceField(choices=categories)
+
+    class Meta:
+        model = Preferences
+        fields = [
+            'age',
+            'tags',
+        ]
+        widgets = {
+            'tags': forms.Select(choices=categories)
+        }

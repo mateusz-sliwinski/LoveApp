@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
+from taggit.managers import TaggableManager
 
 class CustomUser(AbstractUser):  # noqa D101
     email = models.EmailField(max_length=254)
@@ -44,6 +44,11 @@ class PhotoUser(models.Model):  # noqa D101
 
 
 class Preferences(models.Model):
+    categories = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+    )
     age = models.IntegerField(
         default=18,
         validators=[
@@ -51,4 +56,9 @@ class Preferences(models.Model):
             MinValueValidator(18)
         ]
      )
-    tag = models.Choices() # tags dla użytkownika bez duplikatorów
+    slug = models.SlugField(unique=True)
+    tags = TaggableManager()
+    custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.tags

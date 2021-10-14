@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.socialaccount',
     'allauth.account',
+    'taggit',
 ]
 
 MIDDLEWARE = [
