@@ -64,16 +64,25 @@ class Preferences(models.Model): # noqa D101
         ('Other', 'Other'),
     )
 
-    age = models.IntegerField(
+    age_min = models.IntegerField(
         default=18,
         validators=[
             MaxValueValidator(200),
             MinValueValidator(18),
         ],
     )
+
+    age_max = models.IntegerField(
+        default=18,
+        validators=[
+            MaxValueValidator(200),
+            MinValueValidator(18),
+        ],
+    )
+
     tags = MultiSelectField(choices=categories)
     sex = models.CharField(max_length=150, choices=sex_category)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self): # noqa D105
-        return f'{self.tags} {self.age} {self.sex}'
+        return f'{self.tags} {self.age_min} {self.age_max} {self.sex}'

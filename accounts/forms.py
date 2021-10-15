@@ -81,7 +81,25 @@ class PreferencesForm(forms.ModelForm): # noqa D101
     class Meta: # noqa D106
         model = Preferences
         fields = [
-            'age',
+            'age_min',
+            'age_max',
             'tags',
             'sex',
         ]
+
+
+class PhotoForm(forms.Form):
+    photo = forms.ImageField(required=False)
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=forms.widgets.DateInput(
+            attrs={'type': 'date'},
+        ),
+    )
+    descriptions = forms.CharField(
+        widget=forms.Textarea,
+        label='descriptions photo',
+        required=False,
+    )
+
+

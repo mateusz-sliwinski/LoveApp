@@ -3,8 +3,8 @@
 from django.views.generic import FormView
 
 # Project
-from accounts.forms import PreferencesForm
-from accounts.models import Preferences
+from accounts.forms import PreferencesForm, PhotoForm
+from accounts.models import Preferences, PhotoUser
 from accounts.utils import validate_tags
 
 
@@ -16,17 +16,42 @@ class PreferencesView(FormView): # noqa  D101
     def form_valid(self, form): # noqa D102
         self.form = form
         tags = form.cleaned_data.get('tags')
-        age = form.cleaned_data.get('age')
+        age_min = form.cleaned_data.get('age_min')
+        age_max = form.cleaned_data.get('age_max')
         sex = form.cleaned_data.get('sex')
 
         current_user = self.request.user
         validate_tags(tags)
         preferences = Preferences.objects.create(
             tags=tags,
-            age=age,
+            age_min=age_min,
+            age_max=age_max,
             sex=sex,
             custom_user=current_user,
         )
         preferences.save()
+
+        return super().form_valid(form)
+
+
+class PhotoView(FormView):
+    template_name = 'photo.html'
+    form_class = PhotoForm
+    success_url = '/'
+
+    def form_valid(self, form): # noqa D102
+        self.form = form
+        photo = form.cleaned_data.get('photo')
+        date = form.cleaned_data.get('date')
+        descriptions = form.cleaned_data.get('descriptions')
+
+        current_user = self.request.user
+        photo = PhotoUser.objects.create(
+            date_add=date,
+            photo=photo,
+            descriptions=descriptions,
+            custom_user=current_user,
+        )
+        photo.save()
 
         return super().form_valid(form)
