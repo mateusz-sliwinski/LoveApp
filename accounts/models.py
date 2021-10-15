@@ -1,12 +1,17 @@
 """Models.py files."""
-# Django
+# Standard Library
 from datetime import date
-from multiselectfield import MultiSelectField
-from dateutil.relativedelta import relativedelta
+
+# Django
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
 from django.db import models
-from taggit.managers import TaggableManager
+
+# 3rd-party
+from dateutil.relativedelta import relativedelta
+from multiselectfield import MultiSelectField
+
 
 class CustomUser(AbstractUser):  # noqa D101
     email = models.EmailField(max_length=254)
@@ -43,7 +48,7 @@ class PhotoUser(models.Model):  # noqa D101
         return f'{self.custom_user.first_name} {self.custom_user.last_name} {self.photo}'
 
 
-class Preferences(models.Model):
+class Preferences(models.Model): # noqa D101
     categories = (
         ('Netflix & Chill', 'Netflix & Chill'),
         ('Books', 'Books'),
@@ -56,11 +61,11 @@ class Preferences(models.Model):
         default=18,
         validators=[
             MaxValueValidator(200),
-            MinValueValidator(18)
-        ]
+            MinValueValidator(18),
+        ],
      )
     tags = MultiSelectField(choices=categories)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f'{self.tags}'
+    def __str__(self): # noqa D105
+        return f'{self.tags} {self.age}'

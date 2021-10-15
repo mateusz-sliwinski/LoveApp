@@ -1,19 +1,20 @@
 """Forms.py file."""
-# Django
+# Standard Library
 import datetime
 
+# Django
 from django import forms
 
 # 3rd-party
 from allauth.account.forms import SignupForm
-# Project
-from urllib3 import fields
 
-from accounts.models import CustomUser, Preferences
+# Project
+from accounts.models import CustomUser
 from accounts.models import PhotoUser
+from accounts.models import Preferences
 
 # Local
-from .utils import time_today, legitimate_age
+from .utils import time_today
 
 
 class MySignUpForm(SignupForm):  # noqa D101
@@ -21,8 +22,17 @@ class MySignUpForm(SignupForm):  # noqa D101
     last_name = forms.CharField(label='Last name', max_length=100)
     city = forms.CharField(label='City', max_length=150)
     photo = forms.ImageField(required=False)
-    descriptions = forms.CharField(widget=forms.Textarea, label='descriptions photo', required=False)
-    date = forms.DateField(initial=datetime.date.today, widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    descriptions = forms.CharField(
+        widget=forms.Textarea,
+        label='descriptions photo',
+        required=False,
+    )
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=forms.widgets.DateInput(
+            attrs={'type': 'date'},
+        ),
+    )
 
     class Meta:  # noqa D106
         model = CustomUser
@@ -65,8 +75,8 @@ class MySignUpForm(SignupForm):  # noqa D101
         return user
 
 
-class PreferencesForm(forms.ModelForm):
-    class Meta:
+class PreferencesForm(forms.ModelForm): # noqa D101
+    class Meta: # noqa D106
         model = Preferences
         fields = [
             'age',

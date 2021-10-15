@@ -4,8 +4,9 @@
 from django.contrib import admin
 
 # Project
-from accounts.models import CustomUser, Preferences
+from accounts.models import CustomUser
 from accounts.models import PhotoUser
+from accounts.models import Preferences
 
 
 @admin.register(CustomUser)
