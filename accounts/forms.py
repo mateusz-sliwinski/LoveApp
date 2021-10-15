@@ -48,7 +48,6 @@ class MySignUpForm(SignupForm):  # noqa D101
         user.save()
 
         if photo is True:
-
             context = {
                 'count_users': user.id,
             }
@@ -60,7 +59,6 @@ class MySignUpForm(SignupForm):  # noqa D101
                 custom_user=CustomUser.objects.get(id=context['count_users']),
             )
             user_photo.save()
-
         else:
             pass
 
@@ -82,7 +80,8 @@ class PreferencesForm(forms.ModelForm):
         fields = [
             'age',
             'tags',
+            'custom_user',
         ]
         widgets = {
-            'tags': forms.Select(choices=categories)
+            'tags': forms.Select(choices=categories),
         }

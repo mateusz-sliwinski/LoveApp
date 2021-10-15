@@ -44,11 +44,7 @@ class PhotoUser(models.Model):  # noqa D101
 
 
 class Preferences(models.Model):
-    categories = (
-        ('A', 'A'),
-        ('B', 'B'),
-        ('C', 'C'),
-    )
+
     age = models.IntegerField(
         default=18,
         validators=[
@@ -61,4 +57,4 @@ class Preferences(models.Model):
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.tags
+        return f'{self.tags.values_list("name", flat=True)}'

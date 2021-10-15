@@ -3,9 +3,9 @@
 from django.urls import include
 from django.urls import path
 #
-from accounts.views import home_view
+from accounts.views import PreferencesView
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
-    path('preferences/', home_view, name='tags')
+    path('preferences/', PreferencesView.as_view(), name='tags')
 ]
