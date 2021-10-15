@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView
+from urllib3 import request
 
 from accounts.forms import PreferencesForm
 from accounts.models import Preferences
@@ -10,6 +11,7 @@ from django.template.defaultfilters import slugify
 
 # class MySignupView(FormView):  # noqa D101
 #     template_name = 'account/signup.html'
+from accounts.utils import validate_tags
 
 
 class PreferencesView(FormView):
@@ -21,27 +23,14 @@ class PreferencesView(FormView):
         self.form = form
         tags = form.cleaned_data.get('tags')
         age = form.cleaned_data.get('age')
-
+        current_user = self.request.user
+        validate_tags(tags)
         preferences = Preferences.objects.create(
             tags=tags,
             age=age,
+            custom_user=current_user
         )
         preferences.save()
 
         return super().form_valid(form)
 
-# def home_view(request):
-#     posts = Preferences.objects.all()
-#     common_tags = Preferences.tags.most_common()[:4]
-#     form = PreferencesForm(request.POST)
-#     if form.is_valid():
-#         newpost = form.save(commit=False)
-#         newpost.slug = slugify(newpost.id)
-#         newpost.save()
-#         form.save_m2m()
-#     context = {
-#         'posts': posts,
-#         'common_tags': common_tags,
-#         'form': form,
-#     }
-#     return render(request, 'preferences.html', context)

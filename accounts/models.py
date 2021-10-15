@@ -45,9 +45,12 @@ class PhotoUser(models.Model):  # noqa D101
 
 class Preferences(models.Model):
     categories = (
-        ('A', 'A'),
-        ('B', 'B'),
-        ('C', 'C'),
+        ('Netflix & Chill', 'Netflix & Chill'),
+        ('Books', 'Books'),
+        ('Travels', 'Travels'),
+        ('Going out for wine', 'Going out for wine'),
+        ('Diner', 'Diner'),
+        ('Model bonding', 'Model bonding'),
     )
     age = models.IntegerField(
         default=18,
@@ -57,6 +60,7 @@ class Preferences(models.Model):
         ]
      )
     tags = MultiSelectField(choices=categories)
+    custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.tags}'

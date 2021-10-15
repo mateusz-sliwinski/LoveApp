@@ -66,7 +66,6 @@ class MySignUpForm(SignupForm):  # noqa D101
 
 
 class PreferencesForm(forms.ModelForm):
-
     class Meta:
         model = Preferences
         fields = [

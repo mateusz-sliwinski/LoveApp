@@ -3,7 +3,7 @@
 import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
-
+from django.core.exceptions import ValidationError
 
 def time_today():  # noqa D103
     current_date = datetime.date.today()
@@ -20,3 +20,10 @@ def legitimate_age(birth_date):
         raise ValueError
 
     return age.years
+
+
+def validate_tags(list):
+    if len(list) > 5:
+        raise ValidationError('You take to much tags.')
+
+    return list
