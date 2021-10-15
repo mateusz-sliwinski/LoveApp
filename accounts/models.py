@@ -1,7 +1,7 @@
 """Models.py files."""
 # Django
 from datetime import date
-
+from multiselectfield import MultiSelectField
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -44,7 +44,11 @@ class PhotoUser(models.Model):  # noqa D101
 
 
 class Preferences(models.Model):
-
+    categories = (
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+    )
     age = models.IntegerField(
         default=18,
         validators=[
@@ -52,9 +56,7 @@ class Preferences(models.Model):
             MinValueValidator(18)
         ]
      )
-    slug = models.SlugField(unique=True)
-    tags = TaggableManager()
-    custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    tags = MultiSelectField(choices=categories)
 
     def __str__(self):
-        return f'{self.tags.values_list("name", flat=True)}'
+        return f'{self.tags}'

@@ -65,23 +65,11 @@ class MySignUpForm(SignupForm):  # noqa D101
         return user
 
 
-categories = (
-    ('A', 'A'),
-    ('B', 'B'),
-    ('C', 'C'),
-)
-
-
 class PreferencesForm(forms.ModelForm):
-    type = forms.ChoiceField(choices=categories)
 
     class Meta:
         model = Preferences
         fields = [
             'age',
             'tags',
-            'custom_user',
         ]
-        widgets = {
-            'tags': forms.Select(choices=categories),
-        }

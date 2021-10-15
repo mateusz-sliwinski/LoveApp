@@ -19,20 +19,14 @@ class PreferencesView(FormView):
 
     def form_valid(self, form):
         self.form = form
-        tags = self.form.cleaned_data.get('tags')
-        types = self.form.cleaned_data.get('type')
+        tags = form.cleaned_data.get('tags')
+        age = form.cleaned_data.get('age')
 
-        context = {
-            'count_tags': Preferences.objects.count() + 1,
-        }
-
-        if form.is_valid():
-            person = form.save(commit=False)
-            person.slug = slugify(context['count_tags'])
-            person.tags = tags
-
-            person.save()
-            form.save_m2m()
+        preferences = Preferences.objects.create(
+            tags=tags,
+            age=age,
+        )
+        preferences.save()
 
         return super().form_valid(form)
 
