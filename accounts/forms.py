@@ -14,7 +14,7 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 
 # Local
-from .utils import time_today
+from .utils import time_today, legitimate_age
 
 
 class MySignUpForm(SignupForm):  # noqa D101
@@ -50,6 +50,8 @@ class MySignUpForm(SignupForm):  # noqa D101
         city = self.cleaned_data['city']
         date = self.cleaned_data['date']
 
+        legitimate_age(date)
+
         user = super().save(request)
         user.first_name = first_name
         user.last_name = last_name
@@ -81,4 +83,5 @@ class PreferencesForm(forms.ModelForm): # noqa D101
         fields = [
             'age',
             'tags',
+            'sex',
         ]

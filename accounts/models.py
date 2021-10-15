@@ -57,15 +57,23 @@ class Preferences(models.Model): # noqa D101
         ('Diner', 'Diner'),
         ('Model bonding', 'Model bonding'),
     )
+
+    sex_category = (
+        ('Man', 'Man'),
+        ('woman', 'Woman'),
+        ('Other', 'Other'),
+    )
+
     age = models.IntegerField(
         default=18,
         validators=[
             MaxValueValidator(200),
             MinValueValidator(18),
         ],
-     )
+    )
     tags = MultiSelectField(choices=categories)
+    sex = models.CharField(max_length=150, choices=sex_category)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self): # noqa D105
-        return f'{self.tags} {self.age}'
+        return f'{self.tags} {self.age} {self.sex}'

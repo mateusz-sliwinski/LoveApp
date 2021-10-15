@@ -17,11 +17,14 @@ class PreferencesView(FormView): # noqa  D101
         self.form = form
         tags = form.cleaned_data.get('tags')
         age = form.cleaned_data.get('age')
+        sex = form.cleaned_data.get('sex')
+
         current_user = self.request.user
         validate_tags(tags)
         preferences = Preferences.objects.create(
             tags=tags,
             age=age,
+            sex=sex,
             custom_user=current_user,
         )
         preferences.save()
