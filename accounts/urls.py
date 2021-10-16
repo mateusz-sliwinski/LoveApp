@@ -16,7 +16,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('preferences/', login_required(PreferencesView.as_view()), name='preferences'),
     path('preferences/list', login_required(PreferencesListView.as_view()), name='preferences_list'),
-    path('preferences/update<int:pk>', login_required(PreferencesUpdateView.as_view()), name='preference_update'),
+    path('preferences/update/<int:pk>', login_required(PreferencesUpdateView.as_view()), name='preference_update'),
 
     path('photo/', login_required(PhotoView.as_view()), name='photo'),
     path('photo/list', login_required(ListPhotoView.as_view()), name='list_photo'),
