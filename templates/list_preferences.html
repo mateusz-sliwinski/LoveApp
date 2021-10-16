@@ -14,7 +14,7 @@
     {{ data.tags }}<br/>
     {{ data.sex}}<br/>
     <hr/>
-
+<a href="{% url 'preference_update' data.id %}">update</a>
     {% endfor %}
 </div>
 </body>

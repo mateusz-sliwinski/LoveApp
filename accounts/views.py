@@ -122,7 +122,15 @@ class PreferencesListView(ListView):
 class PreferencesUpdateView(UpdateView):
     model = Preferences
     template_name = 'update_preferences.html'
-    form_class = PreferencesForm
-    queryset = Preferences.objects.all()
+    success_url = reverse_lazy('preferences_list')
+
+    fields = [
+        'age_min',
+        'age_max',
+        'tags',
+        'sex',
+    ]
+
+
 
 
