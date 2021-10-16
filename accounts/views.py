@@ -124,7 +124,7 @@ class PreferencesListView(ListView):
 
 class PreferencesUpdateView(UpdateView):
     model = Preferences
-    template_name = 'update_preferences.html'
+    template_name = 'preferences.html'
     success_url = reverse_lazy('preferences_list')
 
     fields = [
@@ -133,7 +133,6 @@ class PreferencesUpdateView(UpdateView):
         'tags',
         'sex',
     ]
-
 
 
 
