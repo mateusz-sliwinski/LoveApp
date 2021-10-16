@@ -1,11 +1,12 @@
 """Views.py files."""
 # Django
-from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic import ListView
+from django.views.generic import UpdateView
 
 # Project
 from accounts.forms import PhotoForm
@@ -14,7 +15,7 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 from accounts.utils import take_id_from_path
 from accounts.utils import validate_tags
-from django.core.exceptions import ValidationError
+
 
 class PreferencesView(FormView): # noqa  D101
     template_name = 'preferences.html'
@@ -45,7 +46,7 @@ class PreferencesView(FormView): # noqa  D101
         return super().form_valid(form)
 
 
-class PhotoView(FormView):
+class PhotoView(FormView): # noqa D101
     template_name = 'photo.html'
     form_class = PhotoForm
     success_url = '/'
@@ -68,24 +69,24 @@ class PhotoView(FormView):
         return super().form_valid(form)
 
 
-class ListPhotoView(ListView):
+class ListPhotoView(ListView): # noqa D101
     model = PhotoUser
     template_name = 'list_photo.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
         return context
 
 
-class DetailPhotoView(DetailView):
+class DetailPhotoView(DetailView): # noqa D101
     model = PhotoUser
     template_name = 'detail_photo.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         full_path = self.request.get_full_path()
@@ -94,12 +95,12 @@ class DetailPhotoView(DetailView):
         return context
 
 
-class DeletePhotoView(DeleteView):
+class DeletePhotoView(DeleteView): # noqa D101
     model = PhotoUser
     template_name = 'delete_photo.html'
     success_url = reverse_lazy('photo')
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         full_path = self.request.get_full_path()
@@ -109,12 +110,12 @@ class DeletePhotoView(DeleteView):
         return context
 
 
-class PreferencesListView(ListView):
+class PreferencesListView(ListView): # noqa D101
     model = Preferences
     template_name = 'list_preferences.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_preferences'] = Preferences.objects.filter(custom_user=current_user).all()
@@ -122,7 +123,7 @@ class PreferencesListView(ListView):
         return context
 
 
-class PreferencesUpdateView(UpdateView):
+class PreferencesUpdateView(UpdateView): # noqa D101
     model = Preferences
     template_name = 'preferences.html'
     success_url = reverse_lazy('preferences_list')
@@ -133,6 +134,3 @@ class PreferencesUpdateView(UpdateView):
         'tags',
         'sex',
     ]
-
-
-

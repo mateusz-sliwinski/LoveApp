@@ -89,7 +89,7 @@ class PreferencesForm(forms.ModelForm): # noqa D101
         ]
 
 
-class PhotoForm(forms.Form):
+class PhotoForm(forms.Form): # noqa D101
     photo = forms.ImageField(required=False)
     date = forms.DateField(
         initial=datetime.date.today,

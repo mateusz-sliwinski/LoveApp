@@ -32,7 +32,7 @@ def validate_tags(list): # noqa D103
     return list
 
 
-def take_id_from_path(full_path):
+def take_id_from_path(full_path): # noqa D103
     reverse_path = full_path[::-1]
     right_id = reverse_path.split('/')
 
