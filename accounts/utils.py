@@ -30,3 +30,9 @@ def validate_tags(list): # noqa D103
     if len(list) > 5:
         raise ValidationError('You take to much tags.')
     return list
+
+def take_id_from_path(full_path):
+    reverse_path = full_path[::-1]
+    right_id = reverse_path.split('/')
+
+    return right_id[0]

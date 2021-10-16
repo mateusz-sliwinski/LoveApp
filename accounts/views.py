@@ -5,7 +5,7 @@ from django.views.generic import FormView, DetailView, ListView
 # Project
 from accounts.forms import PreferencesForm, PhotoForm
 from accounts.models import Preferences, PhotoUser
-from accounts.utils import validate_tags
+from accounts.utils import validate_tags, take_id_from_path
 
 
 class PreferencesView(FormView): # noqa  D101
@@ -74,9 +74,13 @@ class DetailPhoto(DetailView):
     template_name = 'detail_photo.html'
     success_url = '/'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
-        context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        full_path = self.request.get_full_path()
+        id_path = take_id_from_path(full_path)
+
+        context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).get(id=id_path)
         print(context)
         return context
