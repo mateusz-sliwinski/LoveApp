@@ -14,7 +14,8 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 
 # Local
-from .utils import time_today, legitimate_age
+from .utils import legitimate_age
+from .utils import time_today
 
 
 class MySignUpForm(SignupForm):  # noqa D101
@@ -101,5 +102,3 @@ class PhotoForm(forms.Form):
         label='descriptions photo',
         required=False,
     )
-
-

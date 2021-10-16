@@ -1,11 +1,18 @@
 """Views.py files."""
 # Django
-from django.views.generic import FormView, DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
+from django.views.generic import FormView
+from django.views.generic import ListView
 
 # Project
-from accounts.forms import PreferencesForm, PhotoForm
-from accounts.models import Preferences, PhotoUser
-from accounts.utils import validate_tags, take_id_from_path
+from accounts.forms import PhotoForm
+from accounts.forms import PreferencesForm
+from accounts.models import PhotoUser
+from accounts.models import Preferences
+from accounts.utils import take_id_from_path
+from accounts.utils import validate_tags
 
 
 class PreferencesView(FormView): # noqa  D101
@@ -57,7 +64,7 @@ class PhotoView(FormView):
         return super().form_valid(form)
 
 
-class ListPhoto(ListView):
+class ListPhotoView(ListView):
     model = PhotoUser
     template_name = 'list_photo.html'
     success_url = '/'
@@ -69,18 +76,42 @@ class ListPhoto(ListView):
         return context
 
 
-class DetailPhoto(DetailView):
+class DetailPhotoView(DetailView):
     model = PhotoUser
     template_name = 'detail_photo.html'
     success_url = '/'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         full_path = self.request.get_full_path()
         id_path = take_id_from_path(full_path)
-
         context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).get(id=id_path)
-        print(context)
+        return context
+
+
+class DeletePhotoView(DeleteView):
+    model = PhotoUser
+    template_name = 'delete_photo.html'
+    success_url = reverse_lazy('photo')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        full_path = self.request.get_full_path()
+        id_path = take_id_from_path(full_path)
+        context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).get(id=id_path)
+
+        return context
+
+
+class PreferencesListView(ListView):
+    model = Preferences
+    template_name = 'preferences_list.html'
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        context['data_preferences'] = PhotoUser.objects.filter(custom_user=current_user).all()
         return context
