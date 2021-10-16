@@ -1,7 +1,8 @@
 """Views.py files."""
 # Django
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, UpdateView
 from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic import ListView
@@ -107,11 +108,21 @@ class DeletePhotoView(DeleteView):
 
 class PreferencesListView(ListView):
     model = Preferences
-    template_name = 'preferences_list.html'
+    template_name = 'list_preferences.html'
     success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
-        context['data_preferences'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        context['data_preferences'] = Preferences.objects.filter(custom_user=current_user).all()
+
         return context
+
+
+class PreferencesUpdateView(UpdateView):
+    model = Preferences
+    template_name = 'update_preferences.html'
+    form_class = PreferencesForm
+    queryset = Preferences.objects.all()
+
+
