@@ -14,7 +14,7 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 from accounts.utils import take_id_from_path
 from accounts.utils import validate_tags
-
+from django.core.exceptions import ValidationError
 
 class PreferencesView(FormView): # noqa  D101
     template_name = 'preferences.html'
@@ -30,14 +30,17 @@ class PreferencesView(FormView): # noqa  D101
 
         current_user = self.request.user
         validate_tags(tags)
-        preferences = Preferences.objects.create(
-            tags=tags,
-            age_min=age_min,
-            age_max=age_max,
-            sex=sex,
-            custom_user=current_user,
-        )
-        preferences.save()
+        if Preferences.objects.filter(custom_user=current_user).exists():
+            raise ValidationError('You have Already Preferences')
+        else:
+            preferences = Preferences.objects.create(
+                tags=tags,
+                age_min=age_min,
+                age_max=age_max,
+                sex=sex,
+                custom_user=current_user,
+            )
+            preferences.save()
 
         return super().form_valid(form)
 
