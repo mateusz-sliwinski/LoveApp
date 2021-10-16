@@ -1,6 +1,6 @@
 """Views.py files."""
 # Django
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView, ListView
 
 # Project
 from accounts.forms import PreferencesForm, PhotoForm
@@ -55,3 +55,28 @@ class PhotoView(FormView):
         photo.save()
 
         return super().form_valid(form)
+
+
+class ListPhoto(ListView):
+    model = PhotoUser
+    template_name = 'list_photo.html'
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        return context
+
+
+class DetailPhoto(DetailView):
+    model = PhotoUser
+    template_name = 'detail_photo.html'
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_user = self.request.user
+        context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        print(context)
+        return context
