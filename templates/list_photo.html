@@ -8,6 +8,7 @@
     {{ data.photo }}<br/>
     {{ data.date_add }}<br/>
     {{ data.descriptions }}<br/>
+    <a href="{% url 'delete_photo' data.id %}">delete</a>
     <hr/>
 
     {% endfor %}

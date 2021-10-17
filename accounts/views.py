@@ -7,6 +7,7 @@ from django.views.generic import DetailView
 from django.views.generic import FormView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
+from django.views.generic import TemplateView
 
 # Project
 from accounts.forms import PhotoForm
@@ -134,3 +135,6 @@ class PreferencesUpdateView(UpdateView): # noqa D101
         'tags',
         'sex',
     ]
+
+class HomeView(TemplateView):  # noqa D101
+    template_name = 'home_page.html'

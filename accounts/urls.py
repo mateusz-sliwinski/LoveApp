@@ -5,7 +5,7 @@ from django.urls import include
 from django.urls import path
 
 # Project
-from accounts.views import DeletePhotoView
+from accounts.views import DeletePhotoView, HomeView
 from accounts.views import DetailPhotoView
 from accounts.views import ListPhotoView
 from accounts.views import PhotoView
@@ -26,5 +26,6 @@ urlpatterns = [
     path('photo/list', login_required(ListPhotoView.as_view()), name='list_photo'),
     path('photo/detail/<int:pk>', login_required(DetailPhotoView.as_view()), name='detail_photo'),
     path('photo/delete/<int:pk>', login_required(DeletePhotoView.as_view()), name='delete_photo'),
+    path('', login_required(HomeView.as_view()), name='home'),
 
 ]
