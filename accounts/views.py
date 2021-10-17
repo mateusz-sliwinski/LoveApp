@@ -21,7 +21,7 @@ from accounts.utils import validate_tags
 class PreferencesView(FormView): # noqa  D101
     template_name = 'preferences.html'
     form_class = PreferencesForm
-    success_url = '/'
+    success_url = reverse_lazy('preferences_list')
 
     def form_valid(self, form): # noqa D102
         self.form = form
@@ -50,7 +50,7 @@ class PreferencesView(FormView): # noqa  D101
 class PhotoView(FormView): # noqa D101
     template_name = 'photo.html'
     form_class = PhotoForm
-    success_url = '/'
+    success_url = reverse_lazy('list_photo')
 
     def form_valid(self, form): # noqa D102
         self.form = form
@@ -79,6 +79,7 @@ class ListPhotoView(ListView): # noqa D101
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        print(context['data_photo'])
         return context
 
 
@@ -99,7 +100,7 @@ class DetailPhotoView(DetailView): # noqa D101
 class DeletePhotoView(DeleteView): # noqa D101
     model = PhotoUser
     template_name = 'delete_photo.html'
-    success_url = reverse_lazy('photo')
+    success_url = reverse_lazy('list_photo')
 
     def get_context_data(self, **kwargs): # noqa D102
         context = super().get_context_data(**kwargs)

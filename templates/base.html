@@ -1,5 +1,6 @@
 <!doctype html>
 {% load i18n %}
+{% load static %}
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,8 +20,11 @@
   <!-- preloading icon font is helping to speed up a little bit -->
   <link rel="preload" href="assets/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
 
+
   <!-- non block rendering : page speed : js = polyfill for old browsers missing `preload` -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/avatar.css' %}">
 
   <!-- favicon -->
 {#  <link rel="shortcut icon" href="favicon.ico">#}
