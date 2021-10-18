@@ -79,7 +79,6 @@ class ListPhotoView(ListView): # noqa D101
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
-        print(context['data_photo'])
         return context
 
 

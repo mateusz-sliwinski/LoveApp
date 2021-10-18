@@ -61,7 +61,7 @@ class MySignUpForm(SignupForm):  # noqa D101
         user.save()
 
         # do poprawy if
-        if photo is True:
+        if date is not None:
             context = {
                 'count_users': user.id,
             }
