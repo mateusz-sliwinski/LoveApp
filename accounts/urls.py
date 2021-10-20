@@ -5,8 +5,9 @@ from django.urls import include
 from django.urls import path
 
 # Project
-from accounts.views import DeletePhotoView, HomeView
+from accounts.views import DeletePhotoView
 from accounts.views import DetailPhotoView
+from accounts.views import HomeView
 from accounts.views import ListPhotoView
 from accounts.views import PhotoView
 from accounts.views import PreferencesListView
