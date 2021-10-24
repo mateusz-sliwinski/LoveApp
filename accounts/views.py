@@ -18,12 +18,12 @@ from accounts.utils import take_id_from_path
 from accounts.utils import validate_tags
 
 
-class PreferencesView(FormView): # noqa  D101
+class PreferencesView(FormView):  # noqa  D101
     template_name = 'preferences.html'
     form_class = PreferencesForm
     success_url = reverse_lazy('preferences_list')
 
-    def form_valid(self, form): # noqa D102
+    def form_valid(self, form):  # noqa D102
         self.form = form
         tags = form.cleaned_data.get('tags')
         age_min = form.cleaned_data.get('age_min')
@@ -47,12 +47,12 @@ class PreferencesView(FormView): # noqa  D101
         return super().form_valid(form)
 
 
-class PhotoView(FormView): # noqa D101
+class PhotoView(FormView):  # noqa D101
     template_name = 'photo.html'
     form_class = PhotoForm
     success_url = reverse_lazy('list_photo')
 
-    def form_valid(self, form): # noqa D102
+    def form_valid(self, form):  # noqa D102
         self.form = form
         photo = form.cleaned_data.get('photo')
         date = form.cleaned_data.get('date')
@@ -70,24 +70,24 @@ class PhotoView(FormView): # noqa D101
         return super().form_valid(form)
 
 
-class ListPhotoView(ListView): # noqa D101
+class ListPhotoView(ListView):  # noqa D101
     model = PhotoUser
     template_name = 'list_photo.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs): # noqa D102
+    def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
         return context
 
 
-class DetailPhotoView(DetailView): # noqa D101
+class DetailPhotoView(DetailView):  # noqa D101
     model = PhotoUser
     template_name = 'detail_photo.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs): # noqa D102
+    def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         full_path = self.request.get_full_path()
@@ -96,12 +96,12 @@ class DetailPhotoView(DetailView): # noqa D101
         return context
 
 
-class DeletePhotoView(DeleteView): # noqa D101
+class DeletePhotoView(DeleteView):  # noqa D101
     model = PhotoUser
     template_name = 'delete_photo.html'
     success_url = reverse_lazy('list_photo')
 
-    def get_context_data(self, **kwargs): # noqa D102
+    def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         full_path = self.request.get_full_path()
@@ -111,12 +111,12 @@ class DeletePhotoView(DeleteView): # noqa D101
         return context
 
 
-class PreferencesListView(ListView): # noqa D101
+class PreferencesListView(ListView):  # noqa D101
     model = Preferences
     template_name = 'list_preferences.html'
     success_url = '/'
 
-    def get_context_data(self, **kwargs): # noqa D102
+    def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['data_preferences'] = Preferences.objects.filter(custom_user=current_user).all()
@@ -124,7 +124,7 @@ class PreferencesListView(ListView): # noqa D101
         return context
 
 
-class PreferencesUpdateView(UpdateView): # noqa D101
+class PreferencesUpdateView(UpdateView):  # noqa D101
     model = Preferences
     template_name = 'preferences.html'
     success_url = reverse_lazy('preferences_list')
@@ -135,6 +135,7 @@ class PreferencesUpdateView(UpdateView): # noqa D101
         'tags',
         'sex',
     ]
+
 
 class HomeView(TemplateView):  # noqa D101
     template_name = 'home_page.html'
