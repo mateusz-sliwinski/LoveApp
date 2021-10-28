@@ -2,13 +2,13 @@
 {% load static %}
 {% block content %}
 
-  <button class="pie-button" value="Dislike">Dislike</button>
-  <button class="pie-button" value="Like">Like</button>
+  <button class="random-button" value="Dislike">Dislike</button>
+  <button class="random-button" value="Like">Like</button>
 
 
   <script>
-      const pieChart = (button = false) => {
-          const url = $("#pieChart").attr("data-url");
+      const randomPerson = (button = false) => {
+          const url = $("#randomPerson").attr("data-url");
           let buttonValue = ''
           if (button) {
               buttonValue = $(button).attr('value')
@@ -18,13 +18,13 @@
               method: 'GET',
               data: buttonValue,
               success: data => {
-                  $("#pieChart").html(data)
+                  $("#randomPerson").html(data)
               },
           })
       }
-      pieChart()
-      $('.pie-button').on("click", (target) => {
-          pieChart(target.currentTarget)
+      randomPerson()
+      $('.randomPerson').on("click", (target) => {
+         randomPerson(target.currentTarget)
       })
   </script>
 
