@@ -20,7 +20,7 @@ class RandomPartner(TemplateView):
     def get(self, request, *args, **kwargs):  # noqa D102
         html = render_to_string(
             self.template_name,
-            {'value_pie': self.get_context_data()},
+            {'random_person': self.get_context_data()},
             request=self.request,
         )
         return HttpResponse(html)
