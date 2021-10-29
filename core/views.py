@@ -14,12 +14,14 @@ class RandomPartnerList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        current_user_id = self.request.user.id
-        all_photo = CustomUser.objects.all().count()
+        # current_user_id = self.request.user.id
+        # all_photo = CustomUser.objects.all().count()
 
         if 'Dislike' in self.request.GET:
+            current_user_id = self.request.user.id
+            all_photo = CustomUser.objects.all().count()
             random = randomize(all_photo, current_user_id)
-            context['photo'] = PhotoUser.objects.filter(custom_user=random).all()
+            context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
             return context
 
         if 'Like' in self.request.GET:
@@ -30,10 +32,9 @@ class RandomPartnerList(TemplateView):
     def get(self, request, *args, **kwargs):  # noqa D102
         html = render_to_string(
             self.template_name,
-            {'randomPerson': self.get_context_data()},
+            {'photo': self.get_context_data()},
             request=self.request,
         )
-        print(self.get_context_data())
         return HttpResponse(html)
 
 
@@ -41,13 +42,13 @@ class RandomPartner(TemplateView):
     template_name = 'random_partner.html'
 
     # test
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        current_user_id = self.request.user.id
-        all_photo = CustomUser.objects.all().count()
-        random = randomize(all_photo, current_user_id)
-        context['list'] = PhotoUser.objects.filter(custom_user=random).all()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     current_user_id = self.request.user.id
+    #     all_photo = CustomUser.objects.all().count()
+    #     random = randomize(all_photo, current_user_id)
+    #     context['list'] = PhotoUser.objects.filter(custom_user=random).all()
+    #     return context
 
     # def dispatch(self, request, *args, **kwargs):
     #

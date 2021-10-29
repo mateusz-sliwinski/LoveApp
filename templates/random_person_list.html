@@ -1,10 +1,14 @@
-
 {% load static %}
 
-{{ photo}}
 
-{% for data in photo %}
-    {{ data.photo }}
-  {{ data.object }}
-  {% endfor %}
-xd
+
+{#{{ like.photo}}#}
+{#XDDsdsdasadsdasedrafafeafaf#}
+{#{% for  dane in photo %}#}
+{#    {{  photo.picture}}#}
+{#  {% endfor %}#}
+
+{% for key,value in photo.items %}
+
+  {{ value.0 }}
+{% endfor %}
