@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
-from accounts.models import CustomUser, PhotoUser
+from accounts.models import CustomUser, PhotoUser, Preferences
 from core.utils import randomize
 
 
@@ -23,10 +23,14 @@ class RandomPartnerList(TemplateView):
             return context
 
         if 'Like' in self.request.GET:
-            print('jestem Like')
+            random = randomize(all_photo, current_user_id)
+            context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
+            return context
 
-
-
+        random = randomize(all_photo, current_user_id)
+        context['data'] = PhotoUser.objects.filter(custom_user=random).all()
+        # add display preferences
+        # context['preferences'] = Preferences.objects.filter(custom_user=random).all()
         return context
 
     def get(self, request, *args, **kwargs):  # noqa D102
