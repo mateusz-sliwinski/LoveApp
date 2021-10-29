@@ -2,9 +2,17 @@
 {% load static %}
 {% block content %}
 
+  {{ context }}
+  {{ data.photo }}
+  {% for data in like %}
+    {{ context }}
+    {{ data }}
+    {{ data.like }}
+    {{like.photo}}
+  {% endfor %}
+
   <button class="random-button" value="Dislike">Dislike</button>
   <button class="random-button" value="Like">Like</button>
-
 
   <script>
       const randomPerson = (button = false) => {
