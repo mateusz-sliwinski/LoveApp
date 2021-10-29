@@ -2,17 +2,14 @@
 {% load static %}
 {% block content %}
 
-  {{ context }}
-  {{ data.photo }}
-  {% for data in like %}
-    {{ context }}
-    {{ data }}
-    {{ data.like }}
-    {{like.photo}}
-  {% endfor %}
 
+   <div id="randomPerson" class="col-12 mb-3" data-url="{% url 'core:ajax_random_person' %}"></div>
   <button class="random-button" value="Dislike">Dislike</button>
   <button class="random-button" value="Like">Like</button>
+
+
+
+
 
   <script>
       const randomPerson = (button = false) => {
