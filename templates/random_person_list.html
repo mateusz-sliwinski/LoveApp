@@ -1,14 +1,20 @@
 {% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/photo.css' %}">
+  <title></title>
+</head>
 
-
-
-{#{{ like.photo}}#}
-{#XDDsdsdasadsdasedrafafeafaf#}
-{#{% for  dane in photo %}#}
-{#    {{  photo.picture}}#}
-{#  {% endfor %}#}
+{% block content %}
 
 {% for key,value in photo.items %}
 
-  {{ value.0 }}
+  {% if value.0 == Null %}
+
+  {% else %}
+    <img src="{{ value.0.photo.url }}" alt="" class="photo">
+
+{% endif %}
+
 {% endfor %}
+
+{% endblock %}
