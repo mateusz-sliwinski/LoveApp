@@ -45,7 +45,7 @@ class PhotoUser(models.Model):  # noqa D101
         verbose_name_plural = 'Photo Users'
 
     def __str__(self):  # noqa: D105
-        return f'{self.custom_user.first_name} {self.custom_user.last_name} {self.photo} {self.descriptions}'
+        return f'{self.custom_user.first_name} {self.custom_user.last_name} {self.photo}'
 
 
 class Preferences(models.Model): # noqa D101
