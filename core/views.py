@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from accounts.models import CustomUser, PhotoUser, Preferences
 from core.models import Likes
 from core.utils import randomize
+from .utils import person_and_tags
 
 
 class RandomPartnerList(TemplateView):
@@ -20,11 +21,11 @@ class RandomPartnerList(TemplateView):
         all_photo = CustomUser.objects.all().count()
 
         if 'Dislike' in self.request.GET:
-            context = self.person_and_tags(all_photo, context, current_user_id)
+            context = person_and_tags(all_photo, context, current_user_id)
             return context
 
         if 'Like' in self.request.GET:
-            context = self.person_and_tags(all_photo, context, current_user_id)
+            context = person_and_tags(all_photo, context, current_user_id)
 
             # test zapewne do zmiany
             x = Likes.objects.create(
@@ -42,16 +43,6 @@ class RandomPartnerList(TemplateView):
         context['preferences'] = Preferences.objects.filter(custom_user=random).all()
         context = {
             'data': context['data'],
-            'preferences': context['preferences'],
-        }
-        return context
-
-    def person_and_tags(self, all_photo, context, current_user_id):
-        random = randomize(all_photo, current_user_id)
-        context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
-        context['preferences'] = Preferences.objects.filter(custom_user=random).all()
-        context = {
-            'picture': context['picture'],
             'preferences': context['preferences'],
         }
         return context

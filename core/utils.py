@@ -10,3 +10,14 @@ def randomize(all_users_count, actually_user):
         if x != actually_user:
             break
     return x
+
+
+def person_and_tags(all_photo, context, current_user_id):
+    random = randomize(all_photo, current_user_id)
+    context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
+    context['preferences'] = Preferences.objects.filter(custom_user=random).all()
+    context = {
+        'picture': context['picture'],
+        'preferences': context['preferences'],
+    }
+    return context
