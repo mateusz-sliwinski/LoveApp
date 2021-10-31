@@ -8,9 +8,15 @@
 
   {% for key,value in photo.items %}
     {% if value.0 == Null %}
+    {{ value.0 }}
     {% else %}
       <img src="{{ value.0.photo.url }}" alt="" class="photo"> <br/>
       {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}<br/>
+      {{ value.0.tags }}<br/>
+      {{ value.0.sex }}<br/>
+      {{ value.0.age_min }} {{ value.0.age_max }}
+
+
     {% endif %}
 
   {% endfor %}
