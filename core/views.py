@@ -39,10 +39,10 @@ class RandomPartnerList(TemplateView):
             return context
 
         random = randomize(all_photo, current_user_id)
-        context['data'] = PhotoUser.objects.filter(custom_user=random).all()
+        context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
         context['preferences'] = Preferences.objects.filter(custom_user=random).all()
         context = {
-            'data': context['data'],
+            'picture': context['picture'],
             'preferences': context['preferences'],
         }
         return context

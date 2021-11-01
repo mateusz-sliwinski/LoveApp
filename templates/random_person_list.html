@@ -6,24 +6,66 @@
 
 {% block content %}
 
-  {% for key,value in photo.items %}
-    {% if value.0.photo.url == Null %}
 
-      {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}<br/>
-      {{ value.0.tags }}<br/>
+  {#  <div class="container">#}
+  {##}
+  {#        {% for key,value in photo.items %}#}
+  {#      {% if value.0.photo.url == Null %}#}
+  {#      {% else %}#}
+  {##}
+  {##}
+  {#        <div class="card-wrapper">#}
+  {#          <div class="card-profile">#}
+  {#            <div class="card-image">#}
+  {#              <img src="{{ value.0.photo.url }}" alt="pictures"> <br/>#}
+  {##}
+  {#            </div>#}
+  {#          </div>#}
+  {#        </div>#}
+  {#        {% for key,value in photo.items %}#}
+  {#            <div class="details">#}
+  {#          <h2>{{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}<br/>#}
+  {#            {{ value.0.tags }}<br/>#}
+  {##}
+  {#            sex preference {{ value.0.sex }}<br/>#}
+  {#            minimum age {{ value.0.age_min }} maximum age {{ value.0.age_max }}<br/>#}
+  {#           {{ value }}#}
+  {##}
+  {#            descripions        {{ value.0.descriptions }}<br/>#}
+  {#            <span class="job-title">UI Developer</span>#}
+  {#          </h2>#}
+  {#        </div>#}
+  {#        {% endfor %}#}
+  {##}
+  {##}
+  {#      {% endif %}#}
+  {# {% endfor %}#}
 
-      sex preference {{ value.0.sex }}<br/>
-      minimum age {{ value.0.age_min }} maximum age {{ value.0.age_max }}
+  {#  </div>#}
+  <div class="container">
 
-    {% else %}
+    {% for key,value in photo.items %}
+      {% if value.0.photo.url == Null %}
+      {% else %}
+        <div class="card-wrapper">
+          <div class="card-profile">
+            <div class="card-image">
+              <img src="{{ value.0.photo.url }}" alt="pictures"> <br/>
+            </div>
+          </div>
+        </div>
+        </div>
+      {% endif %}
 
-      <img src="{{ value.0.photo.url }}" alt="pictures" class="photo"> <br/>
-      {{ value.0.descriptions }}<br/>
 
 
 
-    {% endif %}
+    {% endfor %}
+      {% for key,value in photo.items%}
+        {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}
+         sex preference {{ value.0.sex }}<br/>
+        {% endfor %}
 
-  {% endfor %}
 
+  </div>
 {% endblock %}

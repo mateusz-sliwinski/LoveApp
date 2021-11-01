@@ -1,6 +1,7 @@
 """Urls.py files."""
 
 from django.contrib.auth.decorators import login_required
+
 from django.urls import path
 
 from .views import RandomPartner, RandomPartnerList
@@ -12,3 +13,4 @@ urlpatterns = [
     path('ajax/random/', login_required(RandomPartnerList.as_view()), name='ajax_random_person'),
 
 ]
+
