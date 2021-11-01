@@ -42,9 +42,10 @@ class RandomPartnerList(TemplateView):
         context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
         context['preferences'] = Preferences.objects.filter(custom_user=random).all()
         context = {
-            'picture': context['picture'],
             'preferences': context['preferences'],
+            'picture': context['picture'],
         }
+
         return context
 
     def get(self, request, *args, **kwargs):  # noqa D102

@@ -17,7 +17,7 @@ def person_and_tags(all_photo, context, current_user_id):
     context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
     context['preferences'] = Preferences.objects.filter(custom_user=random).all()
     context = {
-        'picture': context['picture'],
         'preferences': context['preferences'],
+        'picture': context['picture'],
     }
     return context
