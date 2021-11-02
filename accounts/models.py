@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
-
+from .consts import sex_category, categories
 # 3rd-party
 from dateutil.relativedelta import relativedelta
 from multiselectfield import MultiSelectField
@@ -21,6 +21,9 @@ class CustomUser(AbstractUser):  # noqa D101
     )
     city = models.CharField(max_length=100)
     birth_date = models.DateField(blank=True, null=True)
+
+    descriptions = models.TextField(blank=True)
+    sex = models.CharField(max_length=150, choices=sex_category)
 
     class Meta:  # noqa: D106
         verbose_name = 'User'
@@ -36,7 +39,6 @@ class CustomUser(AbstractUser):  # noqa D101
 class PhotoUser(models.Model):  # noqa D101
     date_add = models.DateField()
     photo = models.ImageField(upload_to='photo', null=True, blank=True)
-    descriptions = models.TextField(blank=True)
     custom_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     class Meta:  # noqa: D106
@@ -49,20 +51,6 @@ class PhotoUser(models.Model):  # noqa D101
 
 
 class Preferences(models.Model): # noqa D101
-    categories = (
-        ('Netflix & Chill', 'Netflix & Chill'),
-        ('Books', 'Books'),
-        ('Travels', 'Travels'),
-        ('Going out for wine', 'Going out for wine'),
-        ('Diner', 'Diner'),
-        ('Model bonding', 'Model bonding'),
-    )
-
-    sex_category = (
-        ('Man', 'Man'),
-        ('Woman', 'Woman'),
-        ('Other', 'Other'),
-    )
 
     age_min = models.IntegerField(
         default=18,

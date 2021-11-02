@@ -14,7 +14,7 @@ from accounts.forms import PhotoForm
 from accounts.forms import PreferencesForm
 from accounts.models import PhotoUser
 from accounts.models import Preferences
-from accounts.utils import take_id_from_path
+from accounts.utils import take_id_from_path, time_today
 from accounts.utils import validate_tags
 
 
@@ -55,12 +55,11 @@ class PhotoView(FormView):  # noqa D101
     def form_valid(self, form):  # noqa D102
         self.form = form
         photo = form.cleaned_data.get('photo')
-        date = form.cleaned_data.get('date')
         descriptions = form.cleaned_data.get('descriptions')
 
         current_user = self.request.user
         photo = PhotoUser.objects.create(
-            date_add=date,
+            date_add=time_today,
             photo=photo,
             descriptions=descriptions,
             custom_user=current_user,

@@ -11,7 +11,6 @@
   {% for key,value in photo.items %}
 
     {% if value.0.photo.url == Null %}
-
     {% else %}
 
       <div class="card" style="width: 18rem;">
@@ -26,7 +25,7 @@
 
       <div class="card-body">
         <h5 class="card-title"> {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}</h5>
-        <p class="card-text"> Opis siebie</p>
+        <p class="card-text"> {{ value.0.custom_user.descriptions }}</p>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">{{ value.0.tags }}</li>

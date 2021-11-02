@@ -38,14 +38,7 @@ class RandomPartnerList(TemplateView):
             x.save()
             return context
 
-        random = randomize(all_photo, current_user_id)
-        context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
-        context['preferences'] = Preferences.objects.filter(custom_user=random).all()
-        context = {
-            'preferences': context['preferences'],
-            'picture': context['picture'],
-        }
-
+        context = person_and_tags(all_photo, context, current_user_id)
         return context
 
     def get(self, request, *args, **kwargs):  # noqa D102
