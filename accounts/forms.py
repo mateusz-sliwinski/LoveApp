@@ -64,8 +64,9 @@ class MySignUpForm(SignupForm):  # noqa D101
         user.sex = sex
         user.save()
 
-        # do poprawy if
-        if date is not None:
+        if date is None:
+            pass
+        else:
             context = {
                 'count_users': user.id,
             }
@@ -76,8 +77,6 @@ class MySignUpForm(SignupForm):  # noqa D101
                 custom_user=CustomUser.objects.get(id=context['count_users']),
             )
             user_photo.save()
-        else:
-            pass
 
         return user
 

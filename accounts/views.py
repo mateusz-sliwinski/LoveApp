@@ -138,3 +138,15 @@ class PreferencesUpdateView(UpdateView):  # noqa D101
 
 class HomeView(TemplateView):  # noqa D101
     template_name = 'home_page.html'
+
+    def get(self, request, *args, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        current_user = self.request.user
+        context['photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        context['preferences'] = Preferences.objects.filter(custom_user=current_user).all()
+        context = {
+            'photo': context['photo'],
+            'preferences': context['preferences'],
+        }
+        print(context)
+        return super().get(context)

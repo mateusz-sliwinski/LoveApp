@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-profil
 
+  {% for key,value in photo.photo.items %}
+{{value.0 }}
+  {% endfor %}
+
+  {% for data in photo.photo %}
+{{data}}
+  {% endfor %}
 {% endblock %}
