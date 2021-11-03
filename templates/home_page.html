@@ -1,12 +1,16 @@
 {% extends "base.html" %}
+
 {% block content %}
 
+  {% for data in photo %}
 
-  {% for key,value in photo.photo.items %}
-{{value.0 }}
-  {% endfor %}
+    <img src="{{ data.photo.url }}" alt="Avatar" class="avatar"><br/>
+    {{ data.custom_user.last_name }} <br/>
+    {{ data.custom_user.first_name }} <br/>
+    {{ data.custom_user.descriptions }} <br/>
+    {{ data.custom_user.sex }} <br/>
+      {{ data.custom_user.premium|yesno:"Premium,NonPremium" }}
 
-  {% for data in photo.photo %}
-{{data}}
+
   {% endfor %}
 {% endblock %}
