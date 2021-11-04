@@ -139,7 +139,6 @@ class PreferencesUpdateView(UpdateView):  # noqa D101
 class HomeView(TemplateView):  # noqa D101
     template_name = 'home_page.html'
 
-
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user

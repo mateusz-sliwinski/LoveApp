@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/photo-random.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/photo-random2.css' %}">
   <title></title>
 </head>
 
@@ -8,40 +8,73 @@
 
   <div class="container">
 
-  {% for key,value in photo.items %}
+    {% for key,value in photo.items %}
 
-    {% if value.0.photo.url == Null %}
-    {% else %}
+      {% if value.0.photo.url == Null %}
+      {% else %}
 
-      <div class="card" style="width: 18rem;">
-      <img src="{{ value.0.photo.url }}" alt="pictures" class="photo"> <br/>
+        {#      <div class="card" style="width: 18rem;">#}
+        <div class="container">
 
-    {% endif %}
-  {% endfor %}
+        <div class="card-wrapper">
 
-  {% for key,value in photo.items %}
-    {% if key == 'preferences' %}
+        <div class="card">
+
+        <div class="card-image">
+          <img src="{{ value.0.photo.url }}" alt="pictures" class="photo"> <br/>
+        </div>
 
 
-      <div class="card-body">
-        <h5 class="card-title"> {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}</h5>
-        <p class="card-text"> {{ value.0.custom_user.descriptions }}</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{ value.0.tags }}</li>
-        <li class="list-group-item"> sex preference {{ value.0.sex }}</li>
-        <li class="list-group-item"> minimum age {{ value.0.age_min }} maximum age {{ value.0.age_max }}</li>
-      </ul>
-      </div>
-      </div>
+      {% endif %}
+    {% endfor %}
 
-      {# w przyszości linki do społeczności #}
-      {#  <div class="card-body">#}
-      {#    <a href="#" class="card-link">Card link</a>#}
-      {#    <a href="#" class="card-link">Another link</a>#}
-      {#  </div>#}
+    {% for key,value in photo.items %}
+      {% if key == 'preferences' %}
 
-    {% endif %}
-  {% endfor %}
+
+        <div class="details">
+          <h2>{{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}
+            <br>
+            <span class="job-title">{{ value.0.custom_user.descriptions }}</span>
+            <span class="job-title">{{ value.0.tags }}</span>
+            <span class="job-title">{{ value.0.sex }}</span>
+            <span class="job-title">min age {{ value.0.age_min }} max age {{ value.0.age_max }}</span>
+          </h2>
+        </div>
+        </div>
+        </div><!-- end box wrapper -->
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        {##}
+        {#      <div class="card-body">#}
+        {#        <h5 class="card-title"> {{ value.0.custom_user.first_name }} {{ value.0.custom_user.last_name }}</h5>#}
+        {#        <p class="card-text"> {{ value.0.custom_user.descriptions }}</p>#}
+        {#      </div>#}
+        {#      <ul class="list-group list-group-flush">#}
+        {#        <li class="list-group-item">{{ value.0.tags }}</li>#}
+        {#        <li class="list-group-item"> sex preference {{ value.0.sex }}</li>#}
+        {#        <li class="list-group-item"> minimum age {{ value.0.age_min }} maximum age {{ value.0.age_max }}</li>#}
+        {#      </ul>#}
+        {#      </div>#}
+        {#      </div>#}
+
+        {# w przyszości linki do społeczności #}
+        {#  <div class="card-body">#}
+        {#    <a href="#" class="card-link">Card link</a>#}
+        {#    <a href="#" class="card-link">Another link</a>#}
+        {#  </div>#}
+
+      {% endif %}
+    {% endfor %}
 
 {% endblock %}
