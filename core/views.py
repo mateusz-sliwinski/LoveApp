@@ -26,14 +26,12 @@ class RandomPartnerList(TemplateView):
 
         if 'Like' in self.request.GET:
             context = person_and_tags(all_photo, context, current_user_id)
-
-            # test zapewne do zmiany
+            print(context['picture'][0])
+            # dodać id 2 usera napisac funkcje parującą  /update scalanie?
             x = Likes.objects.create(
-                who_i_like=randomize(all_photo, current_user_id),
-                who_like_me='Null',
-                who_matched_with_me='Null',
-                custom_user=current_user
-
+                user_one=current_user,
+                user_two=PhotoUser.objects.filter(photo=context['picture']).get('id'),
+                status='NUll',
             )
             x.save()
             return context
