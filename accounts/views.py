@@ -14,7 +14,8 @@ from accounts.forms import PhotoForm
 from accounts.forms import PreferencesForm
 from accounts.models import PhotoUser
 from accounts.models import Preferences
-from accounts.utils import take_id_from_path, time_today
+from accounts.utils import take_id_from_path
+from accounts.utils import time_today
 from accounts.utils import validate_tags
 
 

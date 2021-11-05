@@ -7,11 +7,16 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from django.db import models
-from .consts import sex_category, categories
+
 # 3rd-party
 from dateutil.relativedelta import relativedelta
 from multiselectfield import MultiSelectField
 from PIL import Image
+
+# Local
+from .consts import categories
+from .consts import sex_category
+
 
 class CustomUser(AbstractUser):  # noqa D101
     email = models.EmailField(max_length=254)
@@ -46,7 +51,7 @@ class PhotoUser(models.Model):  # noqa D101
         verbose_name = 'Photo User'
         verbose_name_plural = 'Photo Users'
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs): # noqa D102
         super().save(*args, **kwargs)
         img = Image.open(self.photo.path)
 

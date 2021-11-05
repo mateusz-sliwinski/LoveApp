@@ -1,11 +1,17 @@
 """Utils.py files."""
+# Standard Library
 from random import randint
 
-from accounts.models import PhotoUser, Preferences, CustomUser
+# 3rd-party
 from core.models import Likes
 
+# Project
+from accounts.models import CustomUser
+from accounts.models import PhotoUser
+from accounts.models import Preferences
 
-def randomize(all_users_count, actually_user):
+
+def randomize(all_users_count, actually_user): # noqa D103
     while True:
         x = randint(1, all_users_count)
         if x != actually_user:
@@ -14,13 +20,13 @@ def randomize(all_users_count, actually_user):
     return x
 
 
-def person_and_tags(all_photo, context, current_user_id):
+def person_and_tags(all_photo, context, current_user_id): # noqa D103
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
     return context
 
 
-def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
+def person_and_tags_for_like(all_photo, context, current_user_id, current_user): # noqa D103
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
 
@@ -34,7 +40,7 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
     return context
 
 
-def take_context(context, random):
+def take_context(context, random): # noqa D103
     context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
     context['preferences'] = Preferences.objects.filter(custom_user=random).all()
     context = {

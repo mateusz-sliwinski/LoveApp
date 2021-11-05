@@ -14,9 +14,10 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 
 # Local
+from .consts import sex_category
 from .utils import legitimate_age
 from .utils import time_today
-from .consts import sex_category
+
 
 class MySignUpForm(SignupForm):  # noqa D101
     first_name = forms.CharField(label='First name', max_length=100)
