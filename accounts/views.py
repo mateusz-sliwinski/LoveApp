@@ -54,14 +54,12 @@ class PhotoView(FormView):  # noqa D101
 
     def form_valid(self, form):  # noqa D102
         self.form = form
-        photo = form.cleaned_data.get('photo')
-        descriptions = form.cleaned_data.get('descriptions')
-
         current_user = self.request.user
+        photo2 = form.cleaned_data.get('photo')
+
         photo = PhotoUser.objects.create(
-            date_add=time_today,
-            photo=photo,
-            descriptions=descriptions,
+            date_add=time_today(),
+            photo=photo2,
             custom_user=current_user,
         )
         photo.save()

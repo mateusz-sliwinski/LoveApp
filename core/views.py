@@ -1,4 +1,5 @@
 """Views.py files."""
+import requests
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -6,7 +7,7 @@ from django.views.generic import TemplateView
 
 from accounts.models import CustomUser, PhotoUser, Preferences
 from core.models import Likes
-from core.utils import randomize
+from core.utils import randomize, person_and_tags_for_like
 from .utils import person_and_tags
 
 
@@ -25,15 +26,15 @@ class RandomPartnerList(TemplateView):
             return context
 
         if 'Like' in self.request.GET:
-            context = person_and_tags(all_photo, context, current_user_id)
-            print(context['picture'][0])
+            context = person_and_tags_for_like(all_photo, context, current_user_id)
+            print(current_user)
             # dodać id 2 usera napisac funkcje parującą  /update scalanie?
-            x = Likes.objects.create(
-                user_one=current_user,
-                user_two=PhotoUser.objects.filter(photo=context['picture']).get('id'),
-                status='NUll',
-            )
-            x.save()
+            # x = Likes.objects.create(
+            #     user_one=current_user_id,
+            #     user_two=PhotoUser.objects.filter.get(id=id),
+            #     status='NUll',
+            # )
+            # x.save()
             return context
 
         context = person_and_tags(all_photo, context, current_user_id)
