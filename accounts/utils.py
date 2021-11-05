@@ -12,7 +12,6 @@ from dateutil.relativedelta import relativedelta
 
 def time_today():  # noqa D103
     current_date = datetime.date.today()
-    print(current_date)
     return current_date
 
 
