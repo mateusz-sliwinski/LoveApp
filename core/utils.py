@@ -37,6 +37,9 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
     )
     x.save()
 
+    Likes.objects.values_list('user_one_id')
+    Likes.objects.values_list('user_two_id')
+
     return context
 
 
