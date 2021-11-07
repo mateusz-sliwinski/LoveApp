@@ -32,8 +32,6 @@ class RandomPartnerList(TemplateView): # noqa D101
         if 'Like' in self.request.GET:
             context = person_and_tags_for_like(all_photo, context, current_user_id, current_user)
 
-            # dodać id 2 usera napisac funkcje parującą  /update scalanie?
-
             return context
 
         context = person_and_tags(all_photo, context, current_user_id)
