@@ -46,6 +46,7 @@
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form.as_p }}
+
         {% if redirect_field_value %}
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
         {% endif %}
@@ -55,16 +56,16 @@
       </form>
     </div>
 
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-right">
-            <h1>Hello, Friend!</h1>
-            <p style="font-weight: bold"> Enter your personal details and start journey with us</p>
-            <a href="{% url 'account_signup' %}" class="ghost" id="signUp">Sign Up</a>
-          </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p style="font-weight: bold"> Enter your personal details and start journey with us</p>
+          <a href="{% url 'account_signup' %}" class="ghost" id="signUp">Sign Up</a>
         </div>
       </div>
     </div>
+  </div>
 
 
 

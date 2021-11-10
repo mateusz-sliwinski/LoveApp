@@ -10,17 +10,14 @@
 
 
 {% block content %}
-<head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/login-register.css' %}">
-  <title></title>
-</head>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login-register.css' %}">
+    <title></title>
+  </head>
 
 
   <div class="container" id="container">
-{##}
-{##}
-{##}
-{#    <div class="form-container sign-up-container">#}
+    <div class="form-container sign-up-container">
       <form class="signup" id="signup_form" enctype='multipart/form-data' method="post"
             action="{% url 'account_signup' %}">
         {% csrf_token %}
@@ -31,17 +28,17 @@
         {% endif %}
         <button type="submit">{% trans "Sign Up" %} &raquo;</button>
       </form>
-{#    </div>#}
+    </div>
 
-{#    <div class="overlay-container">#}
-{#      <div class="overlay">#}
-{#        <div class="overlay-panel overlay-left">#}
-{#          <h1>Welcome Back!</h1>#}
-{#          <p style="font-weight: bold">To keep connected with us please login with your personal info</p>#}
-{#          <button class="ghost" id="signIn">Sign In</button>#}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p style="font-weight: bold"> Enter your personal details and start journey with us</p>
+          <a href="{% url 'account_login' %}" class="ghost" id="signUp">Sign In</a>
+        </div>
+      </div>
+    </div>
   </div>
 
 
