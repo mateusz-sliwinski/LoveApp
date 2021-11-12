@@ -125,7 +125,7 @@ input {
 }
 
 .overlay {
-    background: url("../images/doggo.jpg");
+    background: url("../images/doggo.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

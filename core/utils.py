@@ -11,7 +11,7 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 
 
-def randomize(all_users_count, actually_user): # noqa D103
+def randomize(all_users_count, actually_user):  # noqa D103
     while True:
         x = randint(1, all_users_count)
         if x != actually_user:
@@ -20,30 +20,41 @@ def randomize(all_users_count, actually_user): # noqa D103
     return x
 
 
-def person_and_tags(all_photo, context, current_user_id): # noqa D103
+def person_and_tags(all_photo, context, current_user_id):  # noqa D103
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
     return context
 
 
-def person_and_tags_for_like(all_photo, context, current_user_id, current_user): # noqa D103
+def person_and_tags_for_like(all_photo, context, current_user_id, current_user):  # noqa D103
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
 
-    x = Likes.objects.create(
+    user_likes = Likes.objects.create(
         user_one=current_user,
         user_two=CustomUser.objects.get(id=random),
         status='NUll',
     )
-    x.save()
+    user_likes.save()
 
-    Likes.objects.values_list('user_one_id')
-    Likes.objects.values_list('user_two_id')
+    x = Likes.objects.values_list('user_one_id')
+    y = Likes.objects.values_list('user_two_id')
+
+    z = returnMatches(x, y)
+
+    print(z.pop(random))
+
+    if z.pop(random) == current_user_id:
+        print('inside')
+        Likes.objects.update(
+            # id=Likes.objects.all().count(),
+            status='match'
+        )
 
     return context
 
 
-def take_context(context, random): # noqa D103
+def take_context(context, random):  # noqa D103
     context['picture'] = PhotoUser.objects.filter(custom_user=random).all()
     context['preferences'] = Preferences.objects.filter(custom_user=random).all()
     context = {
@@ -51,3 +62,7 @@ def take_context(context, random): # noqa D103
         'picture': context['picture'],
     }
     return context
+
+
+def returnMatches(a, b):
+    return list(set(a) & set(b))
