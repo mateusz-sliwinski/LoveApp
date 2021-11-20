@@ -11,13 +11,15 @@ from accounts.models import PhotoUser
 from accounts.models import Preferences
 
 
-def randomize(all_users_count, actually_user):  # noqa D103
-    while True:
-        x = randint(1, all_users_count)
-        if x != actually_user:
-            break
+def randomize(all_users_count, actually_user_id):  # noqa D103
 
-    return x
+    x = CustomUser.objects.all()
+    y = Likes.objects.filter(user_one=actually_user_id)
+    x = x.exclude(id=actually_user_id)
+    for z in range(y.count()):
+        x = x.exclude(id=y[z].user_two.id)
+
+    return x[randint(0, len(x) - 1)].id
 
 
 def person_and_tags(all_photo, context, current_user_id):  # noqa D103
@@ -30,27 +32,27 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
 
-    user_likes = Likes.objects.create(
-        user_one=current_user,
-        user_two=CustomUser.objects.get(id=random),
-        status='NUll',
-    )
-    user_likes.save()
+    list_likes = Likes.objects.filter(user_one=random, user_two=current_user_id)
 
-    x = Likes.objects.values_list('user_one_id')
-    y = Likes.objects.values_list('user_two_id')
+    if len(list_likes) > 0:
+        user_likes = Likes.objects.create(
+            user_one=current_user,
+            user_two=CustomUser.objects.get(id=random),
+            status='Matched',
+        )
+        user_likes.save()
 
-    z = returnMatches(x, y)
-
-    print(z.pop(random))
-
-    if z.pop(random) == current_user_id:
-        print('inside')
-        Likes.objects.update(
-            # id=Likes.objects.all().count(),
-            status='match'
+        list_likes.update(
+            status='Matched',
         )
 
+    else:
+        user_likes = Likes.objects.create(
+            user_one=current_user,
+            user_two=CustomUser.objects.get(id=random),
+            status='Liked',
+        )
+        user_likes.save()
     return context
 
 
@@ -62,7 +64,3 @@ def take_context(context, random):  # noqa D103
         'picture': context['picture'],
     }
     return context
-
-
-def returnMatches(a, b):
-    return list(set(a) & set(b))
