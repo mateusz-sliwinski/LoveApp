@@ -4,4 +4,6 @@ django-allauth==0.45.0
 Pillow==8.3.2
 django-taggit==1.5.1
 django-multiselectfield==0.1.12
+django-crispy-forms==1.13.0
+
 

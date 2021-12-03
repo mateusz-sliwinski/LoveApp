@@ -1,10 +1,9 @@
 """Models.py files."""
 # Django
 from django.db import models
-
-# Project
 from django.utils import timezone
 
+# Project
 from accounts.models import CustomUser
 
 
@@ -34,4 +33,3 @@ class Message(models.Model):
     image = models.ImageField(upload_to='chat', blank=True, null=True)
     date = models.DateTimeField(default=timezone.now)
     is_read = models.BooleanField(default=False)
-

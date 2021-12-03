@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'taggit',
     'multiselectfield',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -153,6 +155,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 ACCOUNT_USERNAME_REQUIRED = False
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
