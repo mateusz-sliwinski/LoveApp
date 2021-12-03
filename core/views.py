@@ -1,8 +1,11 @@
 """Views.py files."""
 # Django
+from django.db.models import Q
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import TemplateView
 
 # 3rd-party
@@ -12,14 +15,15 @@ from core.utils import person_and_tags_for_like
 from accounts.models import CustomUser
 
 # Local
+from .models import Thread
 from .utils import person_and_tags
 
 
-class RandomPartnerList(TemplateView): # noqa D101
+class RandomPartnerList(TemplateView):  # noqa D101
     template_name = 'random_person_list.html'
     success_url = reverse_lazy('core:random')
 
-    def get_context_data(self, **kwargs): # noqa D102
+    def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user_id = self.request.user.id
         current_user = self.request.user
@@ -46,19 +50,17 @@ class RandomPartnerList(TemplateView): # noqa D101
         return HttpResponse(html)
 
 
-class RandomPartner(TemplateView): # noqa D101
+class RandomPartner(TemplateView):  # noqa D101
     template_name = 'random_partner.html'
 
-    # test
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     current_user_id = self.request.user.id
-    #     all_photo = CustomUser.objects.all().count()
-    #     random = randomize(all_photo, current_user_id)
-    #     context['preferences'] = Preferences.objects.filter(custom_user=random).all()
-    #     return context
-    #
-    # # def dispatch(self, request, *args, **kwargs):
-    # #
-    # #     print(self.get_context_data())
-    # #     return super().dispatch(request, *args, **kwargs)
+
+class ListThread(View):
+
+    def get(self, request, *args, **kwargs):
+        threads = Thread.objects.filter(Q(user=request.CustomUser) | Q(receiver=request.CustomUser))
+
+        context = {
+            'threads': threads
+        }
+
+        return render(request, 'social/inbox.html', context)
