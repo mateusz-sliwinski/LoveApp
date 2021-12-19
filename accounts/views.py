@@ -144,5 +144,6 @@ class HomeView(TemplateView):  # noqa D101
         context['photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
         return context
 
+
 class test(TemplateView):
     template_name = 'test.html'
