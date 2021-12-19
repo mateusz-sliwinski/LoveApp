@@ -145,5 +145,5 @@ class HomeView(TemplateView):  # noqa D101
         return context
 
 
-class test(TemplateView):
+class test(TemplateView):  # noqa D101
     template_name = 'test.html'

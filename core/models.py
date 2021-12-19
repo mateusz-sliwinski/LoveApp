@@ -1,6 +1,5 @@
 """Models.py files."""
 # Django
-from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -21,13 +20,15 @@ class Likes(models.Model):  # noqa D101
         return f'{self.user_one} {self.user_two} {self.status}'
 
 
-class Thread(models.Model):
+class Thread(models.Model):  # noqa D101
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
     receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
 
 
-class Message(models.Model):
-    thread = models.ForeignKey('Thread', related_name='+', on_delete=models.CASCADE, blank=True, null=True)
+class Message(models.Model):  # noqa D101
+    thread = models.ForeignKey('Thread', related_name='+', on_delete=models.CASCADE,
+                               blank=True, null=True,
+                               )
     sender_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
     receiver_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
     text_body = models.CharField(max_length=1000)

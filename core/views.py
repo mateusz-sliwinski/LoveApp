@@ -58,28 +58,28 @@ class RandomPartner(TemplateView):  # noqa D101
     template_name = 'random_partner.html'
 
 
-class ListThreads(View):
-    def get(self, request, *args, **kwargs):
+class ListThreads(View):  # noqa D101
+    def get(self, request, *args, **kwargs):  # noqa D102
         threads = Thread.objects.filter(Q(user=request.user) | Q(receiver=request.user))
 
         context = {
-            'threads': threads
+            'threads': threads,
         }
 
         return render(request, 'social/inbox.html', context)
 
 
-class CreateThread(View):
-    def get(self, request, *args, **kwargs):
+class CreateThread(View):  # noqa D101
+    def get(self, request, *args, **kwargs):  # noqa D102
         form = ThreadForm()
 
         context = {
-            'form': form
+            'form': form,
         }
 
         return render(request, 'social/create_thread.html', context)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # noqa D102
         form = ThreadForm(request.POST)
 
         username = request.POST.get('username')
@@ -96,31 +96,31 @@ class CreateThread(View):
             if form.is_valid():
                 thread = Thread(
                     user=request.user,
-                    receiver=receiver
+                    receiver=receiver,
                 )
                 thread.save()
 
                 return redirect('core:thread', pk=thread.pk)
-        except:
+        except username.DoesNotExist:
             return redirect('core:create-thread')
 
 
-class ThreadView(View):
-    def get(self, request, pk, *args, **kwargs):
+class ThreadView(View):  # noqa D101
+    def get(self, request, pk, *args, **kwargs):  # noqa D102
         form = MessageForm()
         thread = Thread.objects.get(pk=pk)
         message_list = Message.objects.filter(thread__pk__contains=pk)
         context = {
             'thread': thread,
             'form': form,
-            'message_list': message_list
+            'message_list': message_list,
         }
 
         return render(request, 'social/thread.html', context)
 
 
-class CreateMessage(View):
-    def post(self, request, pk, *args, **kwargs):
+class CreateMessage(View):  # noqa D101
+    def post(self, request, pk, *args, **kwargs):  # noqa D102
         thread = Thread.objects.get(pk=pk)
         if thread.receiver == request.user:
             receiver = thread.user
@@ -131,7 +131,7 @@ class CreateMessage(View):
             thread=thread,
             sender_user=request.user,
             receiver_user=receiver,
-            text_body=request.POST.get('message')
+            text_body=request.POST.get('message'),
         )
 
         message.save()
