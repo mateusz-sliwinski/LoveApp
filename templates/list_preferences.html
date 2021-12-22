@@ -1,17 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-<body>
+  <body>
 
-<div class="main">
-    {% for data in data_preferences %}
+  <div class="main">
 
-    {{ data.age_min }}<br/>
-    {{ data.age_max }}<br/>
-    {{ data.tags }}<br/>
-    {{ data.sex}}<br/>
-    <hr/>
-<a href="{% url 'preference_update' data.id %}">update</a>
-    {% endfor %}
-</div>
-</body>
+  </div>
+
+
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
+
+          <div class="container pt-5">
+          <div class="p-4 bg-dark rounded shadow-sm text-white">
+            {% for data in data_preferences %}
+
+              {{ data.age_min }}<br/>
+              {{ data.age_max }}<br/>
+              {{ data.tags }}<br/>
+              {{ data.sex }}<br/>
+              <hr/>
+              <a style="color:white !important;" href="{% url 'preference_update' data.id %}">update</a>
+            {% endfor %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
 {% endblock %}
