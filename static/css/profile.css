@@ -3,10 +3,10 @@
 }
 
 body {
-    background: #654ea3;
-    background: -webkit-linear-gradient(to right, #654ea3, #eaafc8);
-    background: linear-gradient(to right, #654ea3, #eaafc8);
     min-height: 100vh;
+    overflow: hidden;
+    background: rgb(36,0,0);
+    background: linear-gradient(90deg, rgba(36,0,0,1) 0%, rgba(121,9,113,1) 35%, rgba(255,0,198,1) 100%);
 }
 
 .image-star{
