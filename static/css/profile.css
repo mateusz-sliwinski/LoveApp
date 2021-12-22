@@ -1,0 +1,24 @@
+.profile-header {
+    transform: translateY(5rem);
+}
+
+body {
+    background: #654ea3;
+    background: -webkit-linear-gradient(to right, #654ea3, #eaafc8);
+    background: linear-gradient(to right, #654ea3, #eaafc8);
+    min-height: 100vh;
+}
+
+.image-star{
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.image-wrapper{
+    position: relative;
+    width: max-content;
+}
+
