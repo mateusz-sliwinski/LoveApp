@@ -1,11 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 
-<body>
-<form method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
-</body>
+  <body>
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
+
+          <div class="container pt-5">
+            <form method="post">
+              {% csrf_token %}
+              <div class="p-4 bg-dark rounded shadow-sm text-white"><p>Are you sure you want to delete
+                "{{ object }}"?</p>
+                      <img src="{{ data_photo.photo.url }}"></div>
+              <button type="submit" class="btn btn-primary">Confirm</button>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
 {% endblock %}

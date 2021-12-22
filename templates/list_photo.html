@@ -2,20 +2,27 @@
 {% load static %}
 
 {% block content %}
-<body>
-<div class="main">
+  <body>
+  <div class="main">
 
     {% for data in data_photo %}
 
+      <div style="text-align: center;">
+        <div class="bg-image hover-overlay ripple shadow-1-strong rounded custom" data-ripple-color="light">
 
-    <img src= "{{ data.photo.url }}" alt="Avatar" class="avatar"><br/>
-    {{ data.date_add }}<br/>
-    {{ data.descriptions }}<br/>
-    <a href="{% url 'delete_photo' data.id %}">delete</a>
-    <hr/>
+          <img src="{{ data.photo.url }}" alt="Avatar" class="avatar">
+          <div class="p-4 bg-dark rounded shadow-sm text-white">
+            {{ data.date_add }}<br/>
+          </div>
+        </div>
+        <a href="{% url 'delete_photo' data.id %}">delete</a>
+        <a href="{% url 'detail_photo' data.id %}">detail</a>
+        <hr/>
+
+      </div>
 
     {% endfor %}
 
-</div>
-</body>
+  </div>
+  </body>
 {% endblock %}
