@@ -1,13 +1,21 @@
 {% extends "base.html" %}
+
 {% block content %}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title></title>
+  </head>
+  <body>
 
-<body>
+  <div style="text-align: center;">
+    <div class="bg-image hover-overlay ripple shadow-1-strong rounded custom" data-ripple-color="light">
 
-<div class="main">
-    <img src= "{{ data_photo.photo.url }}"><br/>
-    {{ data_photo.date_add }}<br/>
-    {{ data_photo.descriptions }}
-</div>
+      <img src="{{ data_photo.photo.url }}" class="img-rounded" alt="Cinque Terre"/>
+       <div class="p-4 bg-dark rounded shadow-sm text-white">  {{ data_photo.date_add }}</div>
+    </div>
+  </div>
 
-</body>
+
+  </body>
 {% endblock %}

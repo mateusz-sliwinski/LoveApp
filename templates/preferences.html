@@ -1,17 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login-register.css' %}">
+  <title></title>
+</head>
+
 {% block content %}
+
+
   <body>
 
 
-  <div class="container pt-5">
-    <form method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <div class="row mb-2 posts">
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
 
+            <div class="container pt-5">
+              <form method="POST">
+                {% csrf_token %}
+                <div class="p-4 bg-dark rounded shadow-sm text-white">  {{ form.as_p }}</div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+
+
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
   </body>
+
 {% endblock %}

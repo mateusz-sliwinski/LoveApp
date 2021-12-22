@@ -20,13 +20,14 @@
                 </div>
                 <div class="media-body mb-5 text-white">
                   <h4 class="mt-0 mb-0">    {{ data.custom_user.last_name }} {{ data.custom_user.first_name }}</h4>
-                  <h4>{{ data.custom_user.sex }} <br/></h4>
+                  <h6>{{ data.custom_user.sex }} <br/></h6>
+                  <h6>{{ data.custom_user.city}} <br/></h6>
+                  <h6>{{ data.custom_user.birth_date }} <br/></h6>
 
                 </div>
               </div>
             </div>
             <div class="py-4">
-              <h5 class="mb-3">Recent posts</h5>
               <div class="p-4 bg-dark rounded shadow-sm text-white">
                 <p class="font-italic mb-0">    {{ data.custom_user.descriptions }}</p>
               </div>
