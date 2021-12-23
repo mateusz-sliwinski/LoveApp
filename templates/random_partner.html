@@ -3,10 +3,11 @@
 {% block content %}
 
 
-   <div id="randomPerson" class="col-12 mb-3" data-url="{% url 'core:ajax_random_person' %}"></div>
-  <button class="random-button" value="Dislike">Dislike</button>
-  <button class="random-button" value="Like">Like</button>
-
+  <div id="randomPerson" class="col-12 mb-3" data-url="{% url 'core:ajax_random_person' %}"></div>
+  <div style="text-align: center;">
+    <button class="random-button btn btn-dark" value="Dislike">Dislike</button>
+    <button class="random-button btn btn-dark" value="Like">Like</button>
+  </div>
 
   <script>
       const randomPerson = (button = false) => {
