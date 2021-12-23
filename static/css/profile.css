@@ -4,7 +4,7 @@
 
 body {
     min-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
     background: rgb(36,0,0);
     background: linear-gradient(90deg, rgba(36,0,0,1) 0%, rgba(121,9,113,1) 35%, rgba(255,0,198,1) 100%);
 }
@@ -20,5 +20,8 @@ body {
 .image-wrapper{
     position: relative;
     width: max-content;
+}
+.profile-image:not(:first-of-type){
+    display: none;
 }
 

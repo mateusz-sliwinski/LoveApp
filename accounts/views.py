@@ -12,7 +12,7 @@ from django.views.generic import UpdateView
 # Project
 from accounts.forms import PhotoForm
 from accounts.forms import PreferencesForm
-from accounts.models import PhotoUser
+from accounts.models import PhotoUser, CustomUser
 from accounts.models import Preferences
 from accounts.utils import take_id_from_path
 from accounts.utils import time_today
@@ -142,6 +142,8 @@ class HomeView(TemplateView):  # noqa D101
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
         context['photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
+        context['users'] = CustomUser.objects.filter(id=current_user.id).all()
+        print(context['users'][0])
         return context
 
 

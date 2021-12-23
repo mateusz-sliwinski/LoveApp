@@ -6,10 +6,14 @@
   <meta charset="UTF-8">
   <title>{% trans "LoveApp" %}</title>
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/avatar.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/detail-photo.css' %}">
+
+  <script src="{% static 'js/index.js' %}"></script>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,9 +30,9 @@
 <div id="content" , name="content" , class="main">
   <div class="row justify-content-center" , style="height: 700px;">
     <div class="col-12">
-    <div class="col-12 ">
-      {% include "navbar.html" %}
-    </div>
+      <div class="col-12 ">
+        {% include "navbar.html" %}
+      </div>
       <hr class="nt-0 nb-4">
       {% block content %}
       {% endblock %}

@@ -1,42 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% for data in photo %}
 
-    <div class="row py-5 px-4">
-      <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
-        <div class="bg-white shadow rounded overflow-hidden">
-          <div class="px-4 pt-0 pb-4 bg-dark">
-            <div class="media align-items-end profile-header">
-              <div class="profile mr-3">
-                <div class="image-wrapper">
-                  <img src="{{ data.photo.url }}" alt="..." width="130">
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark">
+          <div class="media align-items-end profile-header">
+            <div class="profile mr-3">
+              <div class="image-wrapper">
 
-                  {% if  data.custom_user.premium|yesno:"Premium,NonPremium" == "Premium" %}
-                    <img src="/static/images/star.png" alt="..." class="image-star">
+                {% for data in photo %}
+                  <img src="{{ data.photo.url }}" alt="..." width="130" class="profile-image">
+                {% endfor %}
+                {% if  data.custom_user.premium|yesno:"Premium,NonPremium" == "Premium" %}
+                  <img src="/static/images/star.png" alt="..." class="image-star">
 
-                  {% endif %}
-
-                </div>
-                <div class="media-body mb-5 text-white">
-                  <h4 class="mt-0 mb-0">    {{ data.custom_user.last_name }} {{ data.custom_user.first_name }}</h4>
-                  <h6>{{ data.custom_user.sex }} <br/></h6>
-                  <h6>{{ data.custom_user.city}} <br/></h6>
-                  <h6>{{ data.custom_user.birth_date }} <br/></h6>
-
-                </div>
+                {% endif %}
               </div>
-            </div>
-            <div class="py-4">
-              <div class="p-4 bg-dark rounded shadow-sm text-white">
-                <p class="font-italic mb-0">    {{ data.custom_user.descriptions }}</p>
-              </div>
-            </div>
-          </div>
+              <div class="media-body mb-5 text-white">
+                {% for data1 in users %}
+
+                  <h4 class="mt-0 mb-0">    {{ data1.last_name }} {{ data1.first_name }}</h4>
+                  <h6>{{ data1.sex }} <br/></h6>
+                  <h6>{{ data1.city }} <br/></h6>
+                  <h6>{{ data1.birth_date }} <br/></h6>
+
+                  </div>
+                  </div>
+                  </div>
+                  <div class="py-4">
+                  <div class="p-4 bg-dark rounded shadow-sm text-white">
+                  <p class="font-italic mb-0">    {{ data1.descriptions }}</p>
+                {% endfor %}
+                </div>
+                </div>
         </div>
-
       </div>
-    </div>
 
-  {% endfor %}
+    </div>
+  </div>
+
+
 {% endblock %}
