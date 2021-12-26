@@ -144,7 +144,6 @@ class HomeView(TemplateView):  # noqa D101
         current_user = self.request.user
         context['photo'] = PhotoUser.objects.filter(custom_user=current_user).all()
         context['users'] = CustomUser.objects.filter(id=current_user.id).all()
-        print(context['users'][0])
         return context
 
 
