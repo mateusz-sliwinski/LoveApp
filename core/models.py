@@ -82,9 +82,7 @@ class Message(models.Model):  # noqa D101
         return f'{self.sender_user} {self.receiver_user}'
 
 
-class Dashboard(models.Model):
-    count_like = models.IntegerField()
-    count_dislike = models.IntegerField()
+class DashboardMessage(models.Model):
     count_message_send = models.IntegerField()
     count_message_take = models.IntegerField()
     create_date = models.DateField()
@@ -94,15 +92,27 @@ class Dashboard(models.Model):
         on_delete=models.DO_NOTHING,
     )
 
+    class Meta:  # noqa D106
+        verbose_name = 'DashboardMessage'
+        verbose_name_plural = 'DashboardsMessages'
+
+    def __str__(self):  # noqa D105
+        return f'{self.count_message_send}-{self.count_message_take}'
+
+
+class DashboardLike(models.Model):
+    count_like = models.IntegerField()
+    count_dislike = models.IntegerField()
+    create_date = models.DateField()
+
     likes = models.ForeignKey(
         Likes,
         on_delete=models.DO_NOTHING,
     )
 
     class Meta:  # noqa D106
-        verbose_name = 'Dashboard'
-        verbose_name_plural = 'Dashboards'
+        verbose_name = 'DashboardLike'
+        verbose_name_plural = 'DashboardsLikes'
 
     def __str__(self):  # noqa D105
-        return f'{self.create_date}-{self.count_like}-{self.count_dislike}-' \
-               f'{self.count_message_send}-{self.count_message_take}'
+        return f'{self.create_date}-{self.count_like}-{self.count_dislike}-'

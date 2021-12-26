@@ -2,7 +2,7 @@
 # Django
 from django import forms
 
-from core.models import Dashboard
+from core.models import DashboardLike, DashboardMessage
 
 
 class ThreadForm(forms.Form):  # noqa D101
@@ -16,13 +16,21 @@ class MessageForm(forms.Form):  # noqa D101
 class DashboardForm(forms.ModelForm):  # noqa D101
 
     class Meta:  # noqa D102
-        model = Dashboard
+        model = DashboardLike
         fields = [
             'count_like',
             'count_dislike',
+            'likes',
+
+        ]
+
+class DashboardForm(forms.ModelForm):  # noqa D101
+
+    class Meta:  # noqa D102
+        model = DashboardMessage
+        fields = [
             'count_message_send',
             'count_message_take',
             'message',
-            'likes',
 
         ]

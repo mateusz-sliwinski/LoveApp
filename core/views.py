@@ -18,7 +18,7 @@ from accounts.models import CustomUser
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import Message, Dashboard
+from .models import Message, DashboardLike
 from .models import Thread
 from .utils import person_and_tags
 
@@ -144,9 +144,13 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
 
-        context['date'] = Dashboard.objects.all().annotate(
+        context['like'] = DashboardLike.objects.all().annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_like')).order_by('month_data')
+
+        context['dislike'] = DashboardLike.objects.all().annotate(
+            month_data=Month('create_date')).values('month_data').annotate(
+            total=Sum('count_dislike')).order_by('month_data')
 
         dict_data = {i: 0 for i in range(1, 13)}
         for data in context['date']:
