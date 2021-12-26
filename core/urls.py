@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 # Local
-from .views import CreateMessage
+from .views import CreateMessage, DashboardView
 from .views import CreateThread
 from .views import ListThreads
 from .views import RandomPartner

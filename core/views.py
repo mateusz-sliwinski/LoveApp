@@ -1,6 +1,6 @@
 """Views.py files."""
 # Django
-from django.db.models import Q
+from django.db.models import Q, Sum, Func
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
-
+from django.db import models
 # 3rd-party
 from core.utils import person_and_tags_for_like
 
@@ -18,7 +18,7 @@ from accounts.models import CustomUser
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import Message
+from .models import Message, Dashboard
 from .models import Thread
 from .utils import person_and_tags
 
@@ -137,5 +137,29 @@ class CreateMessage(View):  # noqa D101
         message.save()
         return redirect('core:thread', pk=pk)
 
+
 class DashboardView(TemplateView):
-    pass
+    template_name = 'dashboard.html'
+
+    def get_context_data(self, **kwargs):  # noqa D102
+        context = super().get_context_data(**kwargs)
+
+        context['date'] = Dashboard.objects.all().annotate(
+            month_data=Month('create_date')).values('month_data').annotate(
+            total=Sum('count_like')).order_by('month_data')
+
+        dict_data = {i: 0 for i in range(1, 13)}
+        for data in context['date']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['list'] = list(dict_data.values())
+
+        return context
+
+
+class Month(Func):
+    """This function extracts the month from the current date."""
+
+    function = 'EXTRACT'
+    template = '%(function)s(MONTH from %(expressions)s)'
+    output_field = models.IntegerField()
