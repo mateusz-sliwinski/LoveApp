@@ -136,3 +136,6 @@ class CreateMessage(View):  # noqa D101
 
         message.save()
         return redirect('core:thread', pk=pk)
+
+class DashboardView(TemplateView):
+    pass
