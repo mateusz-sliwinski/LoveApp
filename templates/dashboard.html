@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+  <div class="col-12 mb-3">
+    <div class="portlet">
+      <div class="portlet-header border-bottom">
+        <span><h2>Simple Bar Charts </h2> </span>
+      </div>
+      <div class="portlet-body">
+      </div>
+      <canvas id="smartyBarSimple" class="chartjs"
+              data-chartjs-dots="false"
+              data-chartjs-legend="true"
+              data-chartjs-grid="true"
+              data-chartjs-tooltip="true"
+
+              data-chartjs-title="Simple Bar Charts"
+              data-chartjs-xaxes-label= "Month"
+                      data-chartjs-yaxes-label= "Like and Dislike"
+
+              data-chartjs-type="bar"
+              data-chartjs-labels='["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]'
+              data-chartjs-datasets='[{
+                  "label": "Count of like and dislike",
+              "data":[
+                   {% for value in list %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+                  "backgroundColor":"rgb(255, 255, 102, 1)"
+              }]'
+      ></canvas>
+    </div>
+  </div>
+
+{% endblock %}
