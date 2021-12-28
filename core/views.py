@@ -143,8 +143,8 @@ class DashboardView(TemplateView):
 
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
-
-        context['date'] = DashboardLike.objects.all().annotate(
+        current_user = self.request.user
+        context['date'] = DashboardLike.objects.all().filter(custom_user=current_user).annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_like')).order_by('month_data')
 
