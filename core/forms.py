@@ -20,11 +20,11 @@ class DashboardForm(forms.ModelForm):  # noqa D101
         fields = [
             'count_like',
             'count_dislike',
-            'likes',
+            'custom_user',
 
         ]
 
-class DashboardForm(forms.ModelForm):  # noqa D101
+class DashboardMessageForm(forms.ModelForm):  # noqa D101
 
     class Meta:  # noqa D102
         model = DashboardMessage

@@ -1,23 +1,34 @@
+
+
 {% load i18n %}
+<head>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
 
 <div class="container-fluid position-relative" style="padding-left: 64%;">
 
   <nav class="navbar navbar-expand-lg navbar-light justify-content-lg-between justify-content-md-inherit">
 
     <div class="align-items-start">
-
       {% if user.is_authenticated %}
+
+        <i class="fi w--15 fi-user-male"> </i>
         <li class="list-inline-item ml--6 mr--6 ">
-          <a href="{% url 'account_logout' %}"{% blocktrans %} Log out {% endblocktrans %} id="dropdownAccountOptions"
-             class="btn btn-sm btn-light btn-pill pl--12 pr--12"
-             aria-expanded="false" aria-haspopup="true">
-                                <span class="group-icon m-0">
-                                    <!-- <i class="fi fi-user-female"></i> -->
-                                    <i class="fi w--15 fi-user-male"></i>
-                                </span>
-            <span class="fs--14 d-none d-sm-inline-block font-weight-medium">{% blocktrans %}Log
-              out. {% endblocktrans %}</span>
+
+
+        <li class="nav-item dropdown btn btn-sm btn-light btn-pill pl--12 pr--12">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            Menu
           </a>
+          <div class="dropdown-menu ">
+            <a class="dropdown-item" href="{% url 'account_logout' %}"{% blocktrans %} Log out {% endblocktrans %}
+               id="dropdownAccountOptions"
+               class="btn btn-sm btn-light btn-pill pl--12 pr--12"
+               aria-expanded="false" aria-haspopup="true">Log Out</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
         </li>
       {% else %}
         <li class="list-inline-item ml--6 mr--6 ">
@@ -37,4 +48,3 @@
     </div>
   </nav>
 </div>
-

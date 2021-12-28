@@ -1,40 +1,55 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 
   <div class="col-12 mb-3">
     <div class="portlet">
       <div class="portlet-header border-bottom">
-        <span><h2>Simple Bar Charts </h2> </span>
+        <span><h2> {% blocktrans %} Simple Bar Charts {% endblocktrans %}</h2> </span>
       </div>
       <div class="portlet-body">
       </div>
-      <canvas id="smartyBarSimple" class="chartjs"
+      <canvas id="BarMultiple" class="chartjs"
               data-chartjs-dots="false"
-              data-chartjs-legend="true"
+              data-chartjs-legend="top"
               data-chartjs-grid="true"
               data-chartjs-tooltip="true"
 
-              data-chartjs-title="Simple Bar Charts"
-              data-chartjs-xaxes-label= "Month"
-                      data-chartjs-yaxes-label= "Like and Dislike"
+              data-chartjs-title="Multiple Bar Charts"
+              data-chartjs-xaxes-label="Month"
+              data-chartjs-yaxes-label="Visits vs Orders"
+              data-chartjs-line-width="5"
 
               data-chartjs-type="bar"
               data-chartjs-labels='["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]'
               data-chartjs-datasets='[{
-                  "label": "Count of like and dislike",
-              "data":[
-                   {% for value in list %}
+				"label": "likes",
+				"data":[
+				{% for value in list %}
                     {% if forloop.last %}
                           {{ value }}
                    {% else %}
                            {{ value }},
                    {% endif %}
                    {% endfor %}],
-                  "backgroundColor":"rgb(255, 255, 102, 1)"
-              }]'
+				"backgroundColor":					"rgba(3, 169, 244, 0.7)"
+		},{
+				"label":										"Orders",
+				"data":	[{% for value in list2 %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor":					"rgba(255, 193, 7, 0.61)"
+		}]'
       ></canvas>
     </div>
   </div>
 
+
+
+  <script src={% static "assets/js/core.min.js" %}></script>
 {% endblock %}

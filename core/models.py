@@ -105,8 +105,8 @@ class DashboardLike(models.Model):
     count_dislike = models.IntegerField()
     create_date = models.DateField()
 
-    likes = models.ForeignKey(
-        Likes,
+    custom_user = models.ForeignKey(
+        CustomUser,
         on_delete=models.DO_NOTHING,
     )
 

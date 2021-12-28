@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 # 3rd-party
-from core.models import Likes
+from core.models import Likes, DashboardLike
 from core.models import Thread
 
 
@@ -16,3 +16,12 @@ class CustomUserAdmin(admin.ModelAdmin):  # noqa D101
 @admin.register(Thread)
 class ThreadAdmin(admin.ModelAdmin):  # noqa D101
     pass
+
+
+
+@admin.register(DashboardLike)
+class DashboardLikeAdmin(admin.ModelAdmin):  # noqa D101
+    pass
+
+
+
