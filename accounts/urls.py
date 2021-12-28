@@ -28,7 +28,7 @@ urlpatterns = [
     path('photo/list', login_required(ListPhotoView.as_view()), name='list_photo'),
     path('photo/detail/<int:pk>', login_required(DetailPhotoView.as_view()), name='detail_photo'),
     path('photo/delete/<int:pk>', login_required(DeletePhotoView.as_view()), name='delete_photo'),
-    path('', login_required(HomeView.as_view()), name='home'),
+    path('account/profile', login_required(HomeView.as_view()), name='home'),
     path('test', test.as_view(), name='test'),
 
 ]

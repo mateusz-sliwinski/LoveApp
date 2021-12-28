@@ -2,11 +2,10 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+
+{% if user.premium == True %}
   <div class="row justify-content-center ">
-
-
     <div class="col-8 high bg-white">
-
       <canvas id="BarMultiple" class="chartjs"
               data-chartjs-dots="false"
               data-chartjs-legend="top"
@@ -15,7 +14,7 @@
 
               data-chartjs-title="Multiple Bar Charts"
               data-chartjs-xaxes-label="Month"
-              data-chartjs-yaxes-label="Visits vs Orders"
+              data-chartjs-yaxes-label="Like vs Dislike"
               data-chartjs-line-width="5"
 
               data-chartjs-type="bar"
@@ -45,7 +44,21 @@
       ></canvas>
     </div>
   </div>
+  {% elif user.premium == False %}
 
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-dark shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark text-white">
+          <h1>Purchase premium to view statistics </h1>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endif %}
 
 
   <script src={% static "assets/js/core.min.js" %}></script>

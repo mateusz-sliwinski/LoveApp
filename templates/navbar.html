@@ -6,42 +6,48 @@
 </head>
 
 
-<div class="container-fluid position-relative" style="padding-left: 64%;">
+<div class="container-fluid position-relative" >
 
-  <nav class="navbar navbar-expand-lg navbar-light justify-content-lg-between justify-content-md-inherit">
+  <nav class="navbar navbar-expand-lg navbar-light  d-block w-100">
 
-    <div class="align-items-start">
+    <div class="d-flex align-items-start justify-content-between">
+
+
       {% if user.is_authenticated %}
 
-        <i class="fi w--15 fi-user-male"> </i>
-        <li class="list-inline-item ml--6 mr--6 ">
 
+        <li class="nav-item btn btn-sm btn-light btn-pill pl--12 pr--12">
+          <a class="nav-link " href="#" id="navbardrop" data-toggle="dropdown">
+            Menu
+          </a>
+        </li>
 
         <li class="nav-item dropdown btn btn-sm btn-light btn-pill pl--12 pr--12">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
             Menu
           </a>
           <div class="dropdown-menu ">
-            <a class="dropdown-item" href="{% url 'account_logout' %}"{% blocktrans %} Log out {% endblocktrans %}
-               id="dropdownAccountOptions"
-               class="btn btn-sm btn-light btn-pill pl--12 pr--12"
+            <a class="dropdown-item" href="{% url 'account_logout' %}"
                aria-expanded="false" aria-haspopup="true">Log Out</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+
+            <a class="dropdown-item" href="{% url 'photo' %}"
+               aria-expanded="false" aria-haspopup="true">Add Photo</a>
+
+
+            <a class="dropdown-item" href="{% url 'list_photo' %}"
+               aria-expanded="false" aria-haspopup="true"> Gallery</a>
+
+
+            <a class="dropdown-item" href="{% url 'preferences' %}"
+               aria-expanded="false" aria-haspopup="true">Add Preference</a>
+
+            <a class="dropdown-item" href="{% url 'preferences_list' %}"
+               aria-expanded="false" aria-haspopup="true">List Preference</a>
+
+            <a class="dropdown-item" href="{% url 'core:dashboard' %}"
+               aria-expanded="false" aria-haspopup="true">Dashboard</a>
+
           </div>
-        </li>
-      {% else %}
-        <li class="list-inline-item ml--6 mr--6 ">
-          <a href="{% url 'account_login' %}"{% blocktrans %} Login {% endblocktrans %} id="dropdownAccountOptions"
-             class="btn btn-sm btn-light btn-pill pl--12 pr--12"
-             aria-expanded="false" aria-haspopup="true">
-                                <span class="group-icon m-0">
-                                    <!-- <i class="fi fi-user-female"></i> -->
-                                    <i class="fi w--15 fi-user-male"></i>
-                                </span>
-            <span class="fs--14 d-none d-sm-inline-block font-weight-medium">{% blocktrans %}Sing
-              In. {% endblocktrans %}</span>
-          </a>
         </li>
       {% endif %}
 
