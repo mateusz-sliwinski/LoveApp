@@ -2,14 +2,11 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
+  <div class="row justify-content-center ">
 
-  <div class="col-12 mb-3">
-    <div class="portlet">
-      <div class="portlet-header border-bottom">
-        <span><h2> {% blocktrans %} Simple Bar Charts {% endblocktrans %}</h2> </span>
-      </div>
-      <div class="portlet-body">
-      </div>
+
+    <div class="col-8 high bg-white">
+
       <canvas id="BarMultiple" class="chartjs"
               data-chartjs-dots="false"
               data-chartjs-legend="top"
@@ -24,7 +21,7 @@
               data-chartjs-type="bar"
               data-chartjs-labels='["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]'
               data-chartjs-datasets='[{
-				"label": "likes",
+				"label": "Likes",
 				"data":[
 				{% for value in list %}
                     {% if forloop.last %}
@@ -33,9 +30,9 @@
                            {{ value }},
                    {% endif %}
                    {% endfor %}],
-				"backgroundColor":					"rgba(3, 169, 244, 0.7)"
+				"backgroundColor": "rgba(3, 169, 244, 0.7)"
 		},{
-				"label":										"Orders",
+				"label": "Dislikes",
 				"data":	[{% for value in list2 %}
                     {% if forloop.last %}
                           {{ value }}
@@ -43,7 +40,7 @@
                            {{ value }},
                    {% endif %}
                    {% endfor %}],
-				"backgroundColor":					"rgba(255, 193, 7, 0.61)"
+				"backgroundColor": "rgba(255, 193, 7, 0.61)"
 		}]'
       ></canvas>
     </div>
