@@ -144,17 +144,17 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
-        context['date'] = DashboardLike.objects.all().filter(custom_user=current_user).annotate(
+        context['like'] = DashboardLike.objects.all().filter(custom_user=current_user).annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_like')).order_by('month_data')
 
         dict_data = {i: 0 for i in range(1, 13)}
-        for data in context['date']:
+        for data in context['like']:
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
-        context['list'] = list(dict_data.values())
+        context['like_list'] = list(dict_data.values())
 
-        context['dislike'] = DashboardLike.objects.all().annotate(
+        context['dislike'] = DashboardLike.objects.all().filter(custom_user=current_user).annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_dislike')).order_by('month_data')
 
@@ -162,7 +162,7 @@ class DashboardView(TemplateView):
         for data in context['dislike']:
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
-        context['list2'] = list(dict_data.values())
+        context['dislike_list'] = list(dict_data.values())
 
         return context
 

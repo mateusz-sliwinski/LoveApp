@@ -23,7 +23,7 @@
               data-chartjs-datasets='[{
 				"label": "Likes",
 				"data":[
-				{% for value in list %}
+				{% for value in like_list %}
                     {% if forloop.last %}
                           {{ value }}
                    {% else %}
@@ -33,7 +33,7 @@
 				"backgroundColor": "rgba(3, 169, 244, 0.7)"
 		},{
 				"label": "Dislikes",
-				"data":	[{% for value in list2 %}
+				"data":	[{% for value in dislike_list %}
                     {% if forloop.last %}
                           {{ value }}
                    {% else %}
