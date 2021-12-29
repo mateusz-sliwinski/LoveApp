@@ -4,7 +4,7 @@ from random import randint
 
 # 3rd-party
 from accounts.utils import time_today
-from core.models import Likes, DashboardLike
+from core.models import Likes, DashboardLike, DashboardMatched
 
 # Project
 from accounts.models import CustomUser
@@ -65,6 +65,14 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
         list_likes.update(
             status='Matched',
         )
+
+        created_matched = DashboardMatched.objects.create(
+            count_matched=1,
+            create_date=str(time_today()),
+            custom_user=current_user,
+            custom_user2=CustomUser.objects.get(id=random),
+        )
+        created_matched.save()
 
     else:
         user_likes = Likes.objects.create(

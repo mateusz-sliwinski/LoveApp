@@ -65,7 +65,35 @@
       </div>
     </div>
 
+    <div class="row justify-content-center  ">
+      <div class="col-6 high bg-white margin">
+        <canvas id="smartyBarSimple" class="chartjs"
+                data-chartjs-dots="false"
+                data-chartjs-legend="true"
+                data-chartjs-grid="true"
+                data-chartjs-tooltip="true"
 
+                data-chartjs-title={% blocktrans %} "Simple Bar Charts" {% endblocktrans %}
+                data-chartjs-xaxes-label={% trans "Month" %}
+                        data-chartjs-yaxes-label= {% trans "Matched" %}
+
+                data-chartjs-type="bar"
+                data-chartjs-labels={% blocktrans %}'["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]' {% endblocktrans %}
+                data-chartjs-datasets='[{
+                  "label":{% blocktrans %} "Count of Matched", {% endblocktrans %}
+              "data":[
+                   {% for value in matched_list %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+                  "backgroundColor":"rgba(3, 169, 244, 0.7)"
+              }]'
+        ></canvas>
+      </div>
+    </div>
 
   {% elif user.premium == False %}
 

@@ -21,7 +21,7 @@ from accounts.models import CustomUser
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import Message, DashboardLike, DashboardMessage
+from .models import Message, DashboardLike, DashboardMessage, DashboardMatched
 from .models import Thread
 from .utils import person_and_tags
 
@@ -204,6 +204,20 @@ class DashboardView(TemplateView):
                                          '%06x' % random.randint(0, 0xFFFFFF)]}
 
         context['dates'] = pie_dict
+
+        # for single bar chart
+
+        context['list_matched'] = DashboardMatched.objects.all().filter(
+            Q(custom_user=current_user) | Q(custom_user2=current_user)
+        ).annotate(
+            month_data=Month('create_date')).values('month_data').annotate(
+            total=Sum('count_matched')).order_by('month_data')
+
+        dict_data = {i: 0 for i in range(1, 13)}
+        for data in context['list_matched']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['matched_list'] = list(dict_data.values())
 
         return context
 

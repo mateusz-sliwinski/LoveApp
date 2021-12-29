@@ -2,7 +2,7 @@
 # Django
 from django import forms
 
-from core.models import DashboardLike, DashboardMessage
+from core.models import DashboardLike, DashboardMessage, DashboardMatched
 
 
 class ThreadForm(forms.Form):  # noqa D101
@@ -23,6 +23,18 @@ class DashboardForm(forms.ModelForm):  # noqa D101
             'custom_user',
 
         ]
+
+class DashboardMatchedForm(forms.ModelForm):  # noqa D101
+
+    class Meta:  # noqa D102
+        model = DashboardMatched
+        fields = [
+            'count_matched',
+            'create_date',
+            'custom_user',
+            'custom_user2',
+        ]
+
 
 class DashboardMessageForm(forms.ModelForm):  # noqa D101
 

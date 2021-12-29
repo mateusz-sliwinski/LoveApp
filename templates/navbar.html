@@ -15,7 +15,6 @@
 
       {% if user.is_authenticated %}
 
-
         <li class="nav-item btn btn-sm btn-light btn-pill pl--12 pr--12">
               <a class="dropdown-item" href="{% url 'core:random' %}"
                aria-expanded="false" aria-haspopup="true">Random Partner</a>
@@ -43,6 +42,9 @@
 
             <a class="dropdown-item" href="{% url 'core:dashboard' %}"
                aria-expanded="false" aria-haspopup="true">Dashboard</a>
+
+            <a class="dropdown-item" href="{% url 'core:inbox' %}"
+               aria-expanded="false" aria-haspopup="true">Chat Room</a>
 
             <a class="dropdown-item" href="{% url 'account_logout' %}"
                aria-expanded="false" aria-haspopup="true">Log Out</a>

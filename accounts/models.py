@@ -89,5 +89,10 @@ class Preferences(models.Model): # noqa D101
         on_delete=models.CASCADE
     )
 
+    class Meta:  # noqa: D106
+
+        verbose_name = 'Preference'
+        verbose_name_plural = 'Preferences'
+
     def __str__(self): # noqa D105
         return f'{self.tags} {self.age_min} {self.age_max} {self.sex}'

@@ -93,8 +93,8 @@ class DashboardMessage(models.Model):
     )
 
     class Meta:  # noqa D106
-        verbose_name = 'DashboardMessage'
-        verbose_name_plural = 'DashboardsMessages'
+        verbose_name = 'Dashboard Message'
+        verbose_name_plural = 'Dashboards Messages'
 
     def __str__(self):  # noqa D105
         return f'{self.count_message_send}-{self.count_message_take}'
@@ -111,8 +111,32 @@ class DashboardLike(models.Model):
     )
 
     class Meta:  # noqa D106
-        verbose_name = 'DashboardLike'
-        verbose_name_plural = 'DashboardsLikes'
+        verbose_name = 'Dashboard Like'
+        verbose_name_plural = 'Dashboards Likes'
 
     def __str__(self):  # noqa D105
-        return f'{self.create_date}-{self.count_like}-{self.count_dislike}-'
+        return f'{self.create_date}-{self.count_like}-{self.count_dislike}'
+
+
+class DashboardMatched(models.Model):
+    count_matched = models.IntegerField()
+    create_date = models.DateField()
+
+    custom_user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.DO_NOTHING,
+        related_name='user_one_matched'
+    )
+
+    custom_user2 = models.ForeignKey(
+        CustomUser,
+        on_delete=models.DO_NOTHING,
+        related_name='user_two_matched'
+    )
+
+    class Meta:  # noqa D106
+        verbose_name = 'DashboardMatched'
+        verbose_name_plural = 'DashboardsMatched'
+
+    def __str__(self):  # noqa D105
+        return f'{self.create_date}-{self.count_matched}'
