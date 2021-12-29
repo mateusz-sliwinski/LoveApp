@@ -26,8 +26,6 @@
             Menu
           </a>
           <div class="dropdown-menu ">
-            <a class="dropdown-item" href="{% url 'account_logout' %}"
-               aria-expanded="false" aria-haspopup="true">Log Out</a>
 
             <a class="dropdown-item" href="{% url 'photo' %}"
                aria-expanded="false" aria-haspopup="true">Add Photo</a>
@@ -45,6 +43,9 @@
 
             <a class="dropdown-item" href="{% url 'core:dashboard' %}"
                aria-expanded="false" aria-haspopup="true">Dashboard</a>
+
+            <a class="dropdown-item" href="{% url 'account_logout' %}"
+               aria-expanded="false" aria-haspopup="true">Log Out</a>
 
           </div>
         </li>

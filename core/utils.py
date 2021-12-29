@@ -3,7 +3,8 @@
 from random import randint
 
 # 3rd-party
-from core.models import Likes
+from accounts.utils import time_today
+from core.models import Likes, DashboardLike
 
 # Project
 from accounts.models import CustomUser
@@ -25,6 +26,16 @@ def randomize(all_users_count, actually_user_id):  # noqa D103
 def person_and_tags(all_photo, context, current_user_id):  # noqa D103
     random = randomize(all_photo, current_user_id)
     context = take_context(context, random)
+
+    user = CustomUser.objects.get(id=random)
+    create_dislike = DashboardLike.objects.create(
+        count_like=0,
+        count_dislike=1,
+        create_date=str(time_today()),
+        custom_user=user
+    )
+    create_dislike.save()
+
     return context
 
 
@@ -33,6 +44,15 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
     context = take_context(context, random)
 
     list_likes = Likes.objects.filter(user_one=random, user_two=current_user_id)
+
+    user = CustomUser.objects.get(id=random)
+    create_like = DashboardLike.objects.create(
+        count_like=1,
+        count_dislike=0,
+        create_date=str(time_today()),
+        custom_user=user
+    )
+    create_like.save()
 
     if len(list_likes) > 0:
         user_likes = Likes.objects.create(
@@ -46,6 +66,8 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
             status='Matched',
         )
 
+        user = CustomUser.objects.get(id=random)
+
     else:
         user_likes = Likes.objects.create(
             user_one=current_user,
@@ -53,6 +75,9 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
             status='Liked',
         )
         user_likes.save()
+
+        user = CustomUser.objects.get(id=random)
+
     return context
 
 
