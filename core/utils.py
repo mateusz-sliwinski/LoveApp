@@ -66,8 +66,6 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
             status='Matched',
         )
 
-        user = CustomUser.objects.get(id=random)
-
     else:
         user_likes = Likes.objects.create(
             user_one=current_user,
@@ -75,8 +73,6 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
             status='Liked',
         )
         user_likes.save()
-
-        user = CustomUser.objects.get(id=random)
 
     return context
 

@@ -1,7 +1,7 @@
 """Views.py files."""
 # Django
 import calendar
-
+import random
 from django.db.models import Q, Sum, Func
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -146,6 +146,7 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
         current_user = self.request.user
+
         context['like'] = DashboardLike.objects.all().filter(custom_user=current_user).annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_like')).order_by('month_data')
@@ -168,24 +169,22 @@ class DashboardView(TemplateView):
 
         # for pie chart data
 
-        context['date'] = DashboardMessage.objects.all().annotate(
-            month_data=Month('create_date')).values(
-            'month_data').annotate(
-            total=Sum('count_message_send')).order_by('month_data')
+        context['data_send'] = DashboardMessage.objects.all().filter(
+            custom_user=current_user).aggregate(
+            total=Sum('count_message_send')
+        )
 
-        pie_dict = {}
-        for month in context['date']:
-            pie_dict[str(month['month_data'])] = [month['total'],
-                                                  '%06x' % random.randint(0, 0xFFFFFF)]  # noqa S001
-            context['dates'] = pie_dict
+        context['data_received'] = DashboardMessage.objects.all().filter(
+            custom_user=current_user).aggregate(
+            total=Sum('count_message_take')
+        )
 
-        dates = {str(index): month for index, month in enumerate(calendar.month_abbr) if month}
+        pie_dict = {'message_send': [list(context['data_send'].values())[0],
+                                     '%06x' % random.randint(0, 0xFFFFFF)],
+                    'message_received': [list(context['data_received'].values())[0],
+                                         '%06x' % random.randint(0, 0xFFFFFF)]}
 
-        new_dates = {}
-        for key, value in pie_dict.items():
-            new_dates[dates[key]] = value
-
-        context['pie_dict'] = new_dates
+        context['dates'] = pie_dict
 
         return context
 

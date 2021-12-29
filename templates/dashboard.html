@@ -44,12 +44,8 @@
       ></canvas>
     </div>
 
-
-
-
-
-    <div class="row justify-content-center ">
-      <div class="col-6 high bg-white">
+    <div class="row justify-content-center  ">
+      <div class="col-6 high bg-white margin">
         <canvas class="chartjs"
                 data-chartjs-title="Pie Chart"
                 data-chartjs-legend="left"
@@ -57,7 +53,7 @@
 
                 data-chartjs-type="pie"
                 data-chartjs-datasets='[
-                      {% for key,value in value_pie.items %}
+                      {% for key,value in dates.items %}
                     {% if forloop.last %}
                        ["{{ key }}", {{ value.0 }}, "#{{ value.1 }}"]
                      {% else %}
@@ -68,13 +64,6 @@
         </canvas>
       </div>
     </div>
-
-
-
-
-
-
-
 
 
 
@@ -91,9 +80,8 @@
       </div>
     </div>
 
-
   {% endif %}
 
-
+</div>
   <script src={% static "assets/js/core.min.js" %}></script>
 {% endblock %}

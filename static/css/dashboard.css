@@ -1,4 +1,8 @@
 .high{
     height: 400px;
-}
 
+}
+.margin {
+    margin-top: 20px !important;
+        height: 470px;
+}
