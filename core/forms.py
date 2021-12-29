@@ -31,6 +31,6 @@ class DashboardMessageForm(forms.ModelForm):  # noqa D101
         fields = [
             'count_message_send',
             'count_message_take',
-            'message',
+            'custom_user',
 
         ]

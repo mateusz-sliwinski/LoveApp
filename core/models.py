@@ -87,8 +87,8 @@ class DashboardMessage(models.Model):
     count_message_take = models.IntegerField()
     create_date = models.DateField()
 
-    message = models.ForeignKey(
-        Message,
+    custom_user = models.ForeignKey(
+        CustomUser,
         on_delete=models.DO_NOTHING,
     )
 

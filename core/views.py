@@ -1,5 +1,7 @@
 """Views.py files."""
 # Django
+import calendar
+
 from django.db.models import Q, Sum, Func
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -18,7 +20,7 @@ from accounts.models import CustomUser
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import Message, DashboardLike
+from .models import Message, DashboardLike, DashboardMessage
 from .models import Thread
 from .utils import person_and_tags
 
@@ -163,6 +165,27 @@ class DashboardView(TemplateView):
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
         context['dislike_list'] = list(dict_data.values())
+
+        # for pie chart data
+
+        context['date'] = DashboardMessage.objects.all().annotate(
+            month_data=Month('create_date')).values(
+            'month_data').annotate(
+            total=Sum('count_message_send')).order_by('month_data')
+
+        pie_dict = {}
+        for month in context['date']:
+            pie_dict[str(month['month_data'])] = [month['total'],
+                                                  '%06x' % random.randint(0, 0xFFFFFF)]  # noqa S001
+            context['dates'] = pie_dict
+
+        dates = {str(index): month for index, month in enumerate(calendar.month_abbr) if month}
+
+        new_dates = {}
+        for key, value in pie_dict.items():
+            new_dates[dates[key]] = value
+
+        context['pie_dict'] = new_dates
 
         return context
 
