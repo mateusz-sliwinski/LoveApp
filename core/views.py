@@ -12,6 +12,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from django.db import models
 # 3rd-party
+from accounts.utils import time_today
 from core.utils import person_and_tags_for_like
 
 # Project
@@ -126,9 +127,18 @@ class CreateMessage(View):  # noqa D101
         thread = Thread.objects.get(pk=pk)
         if thread.receiver == request.user:
             receiver = thread.user
+
+            crated_mess = DashboardMessage.objects.create(
+                count_message_send=0,
+                count_message_take=1,
+                create_date=str(time_today()),
+                custom_user=receiver
+
+            )
+            crated_mess.save()
+
         else:
             receiver = thread.receiver
-
         message = Message(
             thread=thread,
             sender_user=request.user,
@@ -137,6 +147,15 @@ class CreateMessage(View):  # noqa D101
         )
 
         message.save()
+
+        crated_mess = DashboardMessage.objects.create(
+            count_message_send=1,
+            count_message_take=0,
+            create_date=str(time_today()),
+            custom_user=request.user
+
+        )
+        crated_mess.save()
         return redirect('core:thread', pk=pk)
 
 
