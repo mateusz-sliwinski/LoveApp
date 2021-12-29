@@ -5,6 +5,7 @@ from django.urls import include
 from django.urls import path
 
 # Project
+from accounts import views
 from accounts.views import DeletePhotoView
 from accounts.views import DetailPhotoView
 from accounts.views import HomeView
@@ -30,6 +31,10 @@ urlpatterns = [
     path('photo/delete/<int:pk>', login_required(DeletePhotoView.as_view()), name='delete_photo'),
     path('accounts/profile/', login_required(HomeView.as_view()), name='home'),
     path('', login_required(HomeView.as_view()), name='home'),
-    path('test', test.as_view(), name='test'),
+    path('pay', test.as_view(), name='pay'),
 
+    path('config/', views.stripe_config),
+    path('create-checkout-session/', views.create_checkout_session),
+    path('success/', views.SuccessView.as_view()),
+    path('cancelled/', views.CancelledView.as_view()),
 ]

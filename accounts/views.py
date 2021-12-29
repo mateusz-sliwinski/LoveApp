@@ -1,7 +1,10 @@
 """Views.py files."""
 # Django
+import stripe
 from django.core.exceptions import ValidationError
+from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import FormView
@@ -18,6 +21,7 @@ from accounts.models import Preferences
 from accounts.utils import take_id_from_path
 from accounts.utils import time_today
 from accounts.utils import validate_tags
+from project import settings
 
 
 class PreferencesView(FormView):  # noqa  D101
@@ -148,4 +152,44 @@ class HomeView(TemplateView):  # noqa D101
 
 
 class test(TemplateView):  # noqa D101
-    template_name = 'test.html'
+    template_name = 'payments.html'
+
+
+class SuccessView(TemplateView):
+    template_name = 'success.html'
+
+
+class CancelledView(TemplateView):
+    template_name = 'cancelled.html'
+
+
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
+        return JsonResponse(stripe_config, safe=False)
+
+
+@csrf_exempt
+def create_checkout_session(request):
+    if request.method == 'GET':
+        domain_url = 'http://localhost:8000/'
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'name': 'premium',
+                        'quantity': 1,
+                        'currency': 'pln',
+                        'amount': '5',
+                    }
+                ]
+            )
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
