@@ -1,17 +1,28 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+
+{% block content %}
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Django + Stripe Checkout</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
   </head>
+
+
   <body>
-  <section class="section">
-    <div class="container">
-      <p>Your payment succeeded.</p>
+  <div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+      <div class="bg-white shadow rounded overflow-hidden">
+        <div class="px-4 pt-0 pb-4 bg-dark text-white">
+
+          <section class="section">
+            <div class="container">
+              <p>Your payment succeeded.</p>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+
   </body>
-</html>
+{% endblock %}

@@ -165,11 +165,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51KCA7RD0NNj7RifKs3OEACOr9dGpL1a' \
-                         'ODDfziOtkRaz93o8nacG8kshSPc5wq7IjlvXXEIILuwLUUKML2RqRwY9S0025AgV7eu78kw'
+                         'ODDfziOtkRaz93o8nacG8kshSPc5wq7IjlvXXEIILuwLUUKML2RqRwY9S0025AgV7eu'
 
 STRIPE_SECRET_KEY = 'sk_test_51KCA7RD0NNj7RifKRjLmC55RveBZOEkv6U6ItDUB' \
-                    'VxE8heRyDi8KxXdQMA0ZmEmt27IZSH2NVz9cmFeXAT9HvTxO00QGSANuMz8ryw'
-
+                    'VxE8heRyDi8KxXdQMA0ZmEmt27IZSH2NVz9cmFeXAT9HvTxO00QGSANuMz'
 
 
 try:

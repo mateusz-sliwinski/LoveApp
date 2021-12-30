@@ -1,23 +1,40 @@
-{% load static %}
+{% extends 'base.html' %}
 
 {% load static %}
 
-<!DOCTYPE html>
-<html>
+{% block content %}
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Django + Stripe Checkout</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
     <script src="{% static 'js/main.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
   </head>
-  <body>
-  <section class="section">
+
+  <div class="pricing-area">
     <div class="container">
-      <button class="button is-primary" id="submitBtn">Purchase!</button>
+      <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="single-price">
+            <div class="deal-top">
+              <h3>Standard</h3>
+              <h4> 5 <span class="sup">zł</span></h4>
+            </div>
+            <div class="deal-bottom">
+              <ul class="deal-item">
+                <li>Unlimited Message</li>
+                <li>Allow to Dashboard</li>
+                <li>And much more</li>
+
+              </ul>
+              <div class="btn-area">
+                <button class="button is-primary btn-area" id="submitBtn">Purchase!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
-  </body>
-</html>
+  </div>
+
+{% endblock %}
+

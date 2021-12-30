@@ -186,7 +186,7 @@ def create_checkout_session(request):
                         'name': 'premium',
                         'quantity': 1,
                         'currency': 'pln',
-                        'amount': '5',
+                        'amount': '500',
                     }
                 ]
             )
