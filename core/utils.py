@@ -3,13 +3,15 @@
 from random import randint
 
 # 3rd-party
-from accounts.utils import time_today
-from core.models import Likes, DashboardLike, DashboardMatched
+from core.models import DashboardLike
+from core.models import DashboardMatched
+from core.models import Likes
 
 # Project
 from accounts.models import CustomUser
 from accounts.models import PhotoUser
 from accounts.models import Preferences
+from accounts.utils import time_today
 
 
 def randomize(all_users_count, actually_user_id):  # noqa D103
@@ -32,7 +34,7 @@ def person_and_tags(all_photo, context, current_user_id):  # noqa D103
         count_like=0,
         count_dislike=1,
         create_date=str(time_today()),
-        custom_user=user
+        custom_user=user,
     )
     create_dislike.save()
 
@@ -50,7 +52,7 @@ def person_and_tags_for_like(all_photo, context, current_user_id, current_user):
         count_like=1,
         count_dislike=0,
         create_date=str(time_today()),
-        custom_user=user
+        custom_user=user,
     )
     create_like.save()
 

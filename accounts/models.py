@@ -86,7 +86,7 @@ class Preferences(models.Model): # noqa D101
     sex = models.CharField(max_length=150, choices=sex_category)
     custom_user = models.ForeignKey(
         CustomUser,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     class Meta:  # noqa: D106

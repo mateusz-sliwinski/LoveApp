@@ -1,6 +1,5 @@
 """Views.py files."""
 # Django
-import stripe
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.urls import reverse_lazy
@@ -12,6 +11,10 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
+# 3rd-party
+import stripe
+from project import settings
+
 # Project
 from accounts.forms import PhotoForm
 from accounts.forms import PreferencesForm
@@ -21,7 +24,6 @@ from accounts.models import Preferences
 from accounts.utils import take_id_from_path
 from accounts.utils import time_today
 from accounts.utils import validate_tags
-from project import settings
 
 
 class PreferencesView(FormView):  # noqa  D101
@@ -155,25 +157,33 @@ class test(TemplateView):  # noqa D101
     template_name = 'payments.html'
 
 
-class SuccessView(TemplateView):
+class SuccessView(TemplateView):  # noqa D101
     template_name = 'success.html'
 
+    def get_context_data(self, **kwargs):  # noqa D102
+        context = super(SuccessView, self).get_context_data(**kwargs)
+        current_user = self.request.user
+        CustomUser.objects.filter(id=current_user.id).update(
+            premium=True,
+        )
+        return context
 
-class CancelledView(TemplateView):
+
+class CancelledView(TemplateView):  # noqa D101
     template_name = 'cancelled.html'
 
 
 @csrf_exempt
-def stripe_config(request):
+def stripe_config(request):  # noqa D103
     if request.method == 'GET':
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
 
 
 @csrf_exempt
-def create_checkout_session(request):
+def create_checkout_session(request):  # noqa D103
     if request.method == 'GET':
-        domain_url = 'http://localhost:8000/'
+        domain_url = 'http://127.0.0.1:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             checkout_session = stripe.checkout.Session.create(
@@ -187,8 +197,8 @@ def create_checkout_session(request):
                         'quantity': 1,
                         'currency': 'pln',
                         'amount': '500',
-                    }
-                ]
+                    },
+                ],
             )
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:

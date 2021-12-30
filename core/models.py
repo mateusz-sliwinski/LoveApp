@@ -11,12 +11,12 @@ class Likes(models.Model):  # noqa D101
     user_one = models.ForeignKey(
         CustomUser,
         on_delete=models.DO_NOTHING,
-        related_name='user_one'
+        related_name='user_one',
     )
     user_two = models.ForeignKey(
         CustomUser,
         on_delete=models.DO_NOTHING,
-        related_name='user_two'
+        related_name='user_two',
     )
     status = models.CharField(max_length=45)
 
@@ -32,12 +32,12 @@ class Thread(models.Model):  # noqa D101
     user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        related_name='+'
+        related_name='+',
     )
     receiver = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        related_name='+'
+        related_name='+',
     )
 
     class Meta:  # noqa D106
@@ -58,17 +58,17 @@ class Message(models.Model):  # noqa D101
     sender_user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        related_name='+'
+        related_name='+',
     )
     receiver_user = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        related_name='+'
+        related_name='+',
     )
     image = models.ImageField(
         upload_to='chat',
         blank=True,
-        null=True
+        null=True,
     )
     text_body = models.CharField(max_length=1000)
     date = models.DateTimeField(default=timezone.now)
@@ -82,7 +82,7 @@ class Message(models.Model):  # noqa D101
         return f'{self.sender_user} {self.receiver_user}'
 
 
-class DashboardMessage(models.Model):
+class DashboardMessage(models.Model):  # noqa D101
     count_message_send = models.IntegerField()
     count_message_take = models.IntegerField()
     create_date = models.DateField()
@@ -100,7 +100,7 @@ class DashboardMessage(models.Model):
         return f'{self.count_message_send}-{self.count_message_take}'
 
 
-class DashboardLike(models.Model):
+class DashboardLike(models.Model):  # noqa D101
     count_like = models.IntegerField()
     count_dislike = models.IntegerField()
     create_date = models.DateField()
@@ -118,20 +118,20 @@ class DashboardLike(models.Model):
         return f'{self.create_date}-{self.count_like}-{self.count_dislike}'
 
 
-class DashboardMatched(models.Model):
+class DashboardMatched(models.Model):  # noqa D101
     count_matched = models.IntegerField()
     create_date = models.DateField()
 
     custom_user = models.ForeignKey(
         CustomUser,
         on_delete=models.DO_NOTHING,
-        related_name='user_one_matched'
+        related_name='user_one_matched',
     )
 
     custom_user2 = models.ForeignKey(
         CustomUser,
         on_delete=models.DO_NOTHING,
-        related_name='user_two_matched'
+        related_name='user_two_matched',
     )
 
     class Meta:  # noqa D106

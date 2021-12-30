@@ -2,7 +2,10 @@
 # Django
 from django import forms
 
-from core.models import DashboardLike, DashboardMessage, DashboardMatched
+# 3rd-party
+from core.models import DashboardLike
+from core.models import DashboardMatched
+from core.models import DashboardMessage
 
 
 class ThreadForm(forms.Form):  # noqa D101

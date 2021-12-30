@@ -1,8 +1,12 @@
 """Views.py files."""
-# Django
-import calendar
+# Standard Library
 import random
-from django.db.models import Q, Sum, Func
+
+# Django
+from django.db import models
+from django.db.models import Func
+from django.db.models import Q
+from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -10,18 +14,21 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
-from django.db import models
+
 # 3rd-party
-from accounts.utils import time_today
 from core.utils import person_and_tags_for_like
 
 # Project
 from accounts.models import CustomUser
+from accounts.utils import time_today
 
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import Message, DashboardLike, DashboardMessage, DashboardMatched
+from .models import DashboardLike
+from .models import DashboardMatched
+from .models import DashboardMessage
+from .models import Message
 from .models import Thread
 from .utils import person_and_tags
 
@@ -132,7 +139,7 @@ class CreateMessage(View):  # noqa D101
                 count_message_send=0,
                 count_message_take=1,
                 create_date=str(time_today()),
-                custom_user=receiver
+                custom_user=receiver,
 
             )
             crated_mess.save()
@@ -152,14 +159,14 @@ class CreateMessage(View):  # noqa D101
             count_message_send=1,
             count_message_take=0,
             create_date=str(time_today()),
-            custom_user=request.user
+            custom_user=request.user,
 
         )
         crated_mess.save()
         return redirect('core:thread', pk=pk)
 
 
-class DashboardView(TemplateView):
+class DashboardView(TemplateView):  # noqa D101
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):  # noqa D102
@@ -190,25 +197,25 @@ class DashboardView(TemplateView):
 
         context['data_send'] = DashboardMessage.objects.all().filter(
             custom_user=current_user).aggregate(
-            total=Sum('count_message_send')
+            total=Sum('count_message_send'),
         )
 
         context['data_received'] = DashboardMessage.objects.all().filter(
             custom_user=current_user).aggregate(
-            total=Sum('count_message_take')
+            total=Sum('count_message_take'),
         )
 
         pie_dict = {'message_send': [list(context['data_send'].values())[0],
-                                     '%06x' % random.randint(0, 0xFFFFFF)],
+                                     '%06x' % random.randint(0, 0xFFFFFF)],  # S001
                     'message_received': [list(context['data_received'].values())[0],
-                                         '%06x' % random.randint(0, 0xFFFFFF)]}
+                                         '%06x' % random.randint(0, 0xFFFFFF)]}  # S001
 
         context['dates'] = pie_dict
 
         # for single bar chart
 
         context['list_matched'] = DashboardMatched.objects.all().filter(
-            Q(custom_user=current_user) | Q(custom_user2=current_user)
+            Q(custom_user=current_user) | Q(custom_user2=current_user),
         ).annotate(
             month_data=Month('create_date')).values('month_data').annotate(
             total=Sum('count_matched')).order_by('month_data')

@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 # Local
-from .views import CreateMessage, DashboardView
+from .views import CreateMessage
 from .views import CreateThread
+from .views import DashboardView
 from .views import ListThreads
 from .views import RandomPartner
 from .views import RandomPartnerList
@@ -23,7 +24,7 @@ urlpatterns = [
     path('inbox/<int:pk>/', ThreadView.as_view(), name='thread'),
     path('inbox/<int:pk>/create-message/', CreateMessage.as_view(), name='create-message'),
 
-    path('dashboard/', login_required(DashboardView.as_view()), name='dashboard'),
+    path('dashboard/', login_required(DashboardView.as_view()), name='dashboard_user'),
 
 
 ]
