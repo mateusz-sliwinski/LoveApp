@@ -3,8 +3,10 @@
 import random
 
 # Django
+from django.utils import timezone
+
 from django.db import models
-from django.db.models import Func
+from django.db.models import Func, Count
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import HttpResponse
@@ -19,7 +21,7 @@ from django.views.generic import TemplateView
 from core.utils import person_and_tags_for_like
 
 # Project
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Preferences
 from accounts.utils import time_today
 
 # Local
@@ -225,6 +227,38 @@ class DashboardView(TemplateView):  # noqa D101
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
         context['matched_list'] = list(dict_data.values())
+
+        return context
+
+
+class DashboardAdminView(TemplateView):  # noqa D101
+    template_name = 'Dashboard_admin.html'
+
+    def get_context_data(self, **kwargs):  # noqa D102
+        context = super().get_context_data(**kwargs)
+
+        # Gender of the users - summary
+        context['count_all_gender'] = CustomUser.objects.all().values('sex').annotate(
+            count=Count('id')
+        )
+
+        # most popular tags for user
+        context['preferences_users'] = Preferences.objects.all().values(
+            'custom_user__preferences__tags', 'age_max', 'age_min', 'sex'
+        ).annotate(
+            count=Count('id')
+        )
+
+        # how many messages were sent in a current month
+        context['all_message'] = Message.objects.all().annotate(
+            month_data=Month('date')).values('month_data').annotate(
+            total=Count('text_body')).order_by('month_data')
+
+        dict_data = {i: 0 for i in range(1, 13)}
+        for data in context['all_message']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['all_message_list'] = list(dict_data.values())
 
         return context
 

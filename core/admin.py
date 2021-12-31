@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 # 3rd-party
-from core.models import DashboardLike
+from core.models import DashboardLike, Message
 from core.models import DashboardMatched
 from core.models import DashboardMessage
 from core.models import Likes
@@ -32,5 +32,10 @@ class DashboardMessageAdmin(admin.ModelAdmin):  # noqa D101
 
 
 @admin.register(DashboardMatched)
-class DashboardMatchedeAdmin(admin.ModelAdmin):  # noqa D101
+class DashboardMatchedAdmin(admin.ModelAdmin):  # noqa D101
+    pass
+
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):  # noqa D101
     pass

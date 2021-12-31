@@ -8,6 +8,7 @@ from django.urls import path
 from .views import CreateMessage
 from .views import CreateThread
 from .views import DashboardView
+from .views import DashboardAdminView
 from .views import ListThreads
 from .views import RandomPartner
 from .views import RandomPartnerList
@@ -25,6 +26,7 @@ urlpatterns = [
     path('inbox/<int:pk>/create-message/', CreateMessage.as_view(), name='create-message'),
 
     path('dashboard/', login_required(DashboardView.as_view()), name='dashboard_user'),
+    path('test', login_required(DashboardAdminView.as_view()), name='dashboard_admin'),
 
 
 ]
