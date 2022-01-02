@@ -19,6 +19,7 @@ class Likes(models.Model):  # noqa D101
         related_name='user_two',
     )
     status = models.CharField(max_length=45)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:  # noqa D106
         verbose_name = 'Like'
