@@ -241,7 +241,6 @@ class DashboardAdminView(TemplateView):  # noqa D101
         context['count_all_gender'] = CustomUser.objects.all().values('sex').annotate(
             count=Count('id')
         )
-        print(context['count_all_gender'])
 
         # most popular tags for user
         context['preferences_users'] = Preferences.objects.all().values(
@@ -249,7 +248,6 @@ class DashboardAdminView(TemplateView):  # noqa D101
         ).annotate(
             count=Count('id')
         )
-        print(context['preferences_users'])
 
         # how many messages were sent in a current month
         context['all_message'] = Message.objects.all().annotate(
@@ -263,18 +261,18 @@ class DashboardAdminView(TemplateView):  # noqa D101
         context['all_message_list'] = list(dict_data.values())
 
         # test all like
-        context['all_Like'] = Likes.objects.all().annotate(
+        context['all_Like'] = Likes.objects.all().filter(
+            status='Matched', user_one__sex='Woman'
+        ).annotate(
             month_data=Month('date')).values('month_data').annotate(
-            total=Count('status').filter(Likes.objects.filter(status='matched'))).order_by('month_data')
+            total=Count('status')).order_by('month_data')
 
-        for data in context['all_message']:
+        for data in context['all_Like']:
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
-        context['all_message_list'] = list(dict_data.values())
+        context['all_like_list'] = list(dict_data.values())
 
         return context
-
-
 
 
 class Month(Func):
