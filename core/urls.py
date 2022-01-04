@@ -26,7 +26,7 @@ urlpatterns = [
     path('inbox/<int:pk>/create-message/', CreateMessage.as_view(), name='create-message'),
 
     path('dashboard/', login_required(DashboardView.as_view()), name='dashboard_user'),
-    path('test', login_required(DashboardAdminView.as_view()), name='dashboard_admin'),
+    path('dashboard/admin', login_required(DashboardAdminView.as_view()), name='dashboard_admin'),
 
 
 ]

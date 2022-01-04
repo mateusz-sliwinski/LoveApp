@@ -63,13 +63,13 @@
     </div>
   </div>
   <div class="row justify-content-center">
-      <div class="col-2 width  bg-white ">
-        Average Age Min: {{ avg_age_min }} <br>
-        Average Age Max: {{ avg_age_max }} <br>
-        The most Preferences Gender:  {{ the_most_preferences_gender }}
+    <div class="col-2 width  bg-white ">
+      Average Age Min: {{ avg_age_min }} <br>
+      Average Age Max: {{ avg_age_max }} <br>
+      The most Preferences Gender: {{ the_most_preferences_gender }}
     </div>
   </div>
-      <div class="row justify-content-center ">
+  <div class="row justify-content-center ">
     <div class="col-8 high bg-white">
       <canvas id="MessageBarMultiple" class="chartjs"
               data-chartjs-dots="false"
@@ -108,11 +108,11 @@
 		}]'
       ></canvas>
     </div>
-      </div>
+  </div>
 
 
 
-        <div class="row justify-content-center ">
+  <div class="row justify-content-center ">
     <div class="col-8 high bg-white">
       <canvas id="LikesBarMultiple" class="chartjs"
               data-chartjs-dots="false"
@@ -122,7 +122,7 @@
 
               data-chartjs-title="Multiple Bar Charts"
               data-chartjs-xaxes-label="Month"
-              data-chartjs-yaxes-label="Message Woman vs Message Man"
+              data-chartjs-yaxes-label="Like Woman vs Like Man vs Like Other"
               data-chartjs-line-width="5"
 
               data-chartjs-type="bar"
@@ -161,7 +161,7 @@
 		}]'
       ></canvas>
     </div>
-      </div>
+  </div>
 
   <script src={% static "assets/js/core.min.js" %}></script>
 {% endblock %}

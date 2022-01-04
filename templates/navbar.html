@@ -6,7 +6,7 @@
 </head>
 
 
-<div class="container-fluid position-relative" >
+<div class="container-fluid position-relative">
 
   <nav class="navbar navbar-expand-lg navbar-light  d-block w-100 color">
 
@@ -16,8 +16,8 @@
       {% if user.is_authenticated %}
 
         <li class="nav-item btn btn-sm btn-light btn-pill pl--12 pr--12">
-              <a class="dropdown-item" href="{% url 'core:random' %}"
-               aria-expanded="false" aria-haspopup="true">Random Partner</a>
+          <a class="dropdown-item" href="{% url 'core:random' %}"
+             aria-expanded="false" aria-haspopup="true">Random Partner</a>
         </li>
 
         <li class="nav-item dropdown btn btn-sm btn-light btn-pill pl--12 pr--12">
@@ -25,14 +25,18 @@
             Menu
           </a>
           <div class="dropdown-menu ">
+            {% if user.is_superuser == True %}
+
+              <a class="dropdown-item" href="{% url 'core:dashboard_admin' %}"
+                 aria-expanded="false" aria-haspopup="true">Dashboard Admin</a>
+
+            {% endif %}
 
             <a class="dropdown-item" href="{% url 'photo' %}"
                aria-expanded="false" aria-haspopup="true">Add Photo</a>
 
-
             <a class="dropdown-item" href="{% url 'list_photo' %}"
                aria-expanded="false" aria-haspopup="true"> Gallery</a>
-
 
             <a class="dropdown-item" href="{% url 'preferences' %}"
                aria-expanded="false" aria-haspopup="true">Add Preference</a>
@@ -45,6 +49,9 @@
 
             <a class="dropdown-item" href="{% url 'core:inbox' %}"
                aria-expanded="false" aria-haspopup="true">Chat Room</a>
+
+            <a class="dropdown-item" href="{% url 'pay' %}"
+               aria-expanded="false" aria-haspopup="true">Buy Premium</a>
 
             <a class="dropdown-item" href="{% url 'account_logout' %}"
                aria-expanded="false" aria-haspopup="true">Log Out</a>
