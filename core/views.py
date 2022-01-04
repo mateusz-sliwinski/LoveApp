@@ -22,7 +22,7 @@ from core.utils import person_and_tags_for_like
 
 # Project
 from accounts.models import CustomUser, Preferences
-from accounts.utils import time_today, summary_preferences
+from accounts.utils import time_today, summary_preferences, pref_age_min, pref_age_max, pref_gender
 
 # Local
 from .forms import MessageForm
@@ -251,11 +251,13 @@ class DashboardAdminView(TemplateView):  # noqa D101
         # most popular tags for user
         context['preferences_users'] = summary_preferences()
 
+        context['avg_age_min'] = pref_age_min()
 
+        context['avg_age_max'] = pref_age_max()
 
+        context['the_most_preferences_gender'] = pref_gender()
 
         # how many messages were sent in a current month
-
 
         context['all_message'] = Message.objects.all().annotate(
             month_data=Month('date')).values('month_data').annotate(

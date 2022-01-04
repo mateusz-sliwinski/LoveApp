@@ -1,6 +1,7 @@
 """Utils.py files."""
 # Standard Library
 import datetime
+import math
 from datetime import date
 
 # Django
@@ -63,4 +64,78 @@ def summary_preferences():
                 help_list[5] += 1
 
     return help_list
+
+
+def pref_age_min():
+    sum_pref = Preferences.objects.all().count()
+    help_list = [0] * 200
+    summary = 0
+    for x in range(sum_pref):
+        get_pref = Preferences.objects.get(id=x + 1).age_min
+
+        help_list[get_pref] += 1
+
+    for x in range(len(help_list)):
+        summary += help_list[x] * x
+
+    summary = summary / sum_pref
+
+    return math.floor(summary)
+
+
+def pref_age_max():
+    sum_pref = sum_preferences()
+    help_list = zeros_list()
+
+    for x in range(sum_pref):
+        get_pref = Preferences.objects.get(id=x + 1).age_max
+
+        help_list[get_pref] += 1
+    summary = 0
+    for x in range(len(help_list)):
+        summary += help_list[x] * x
+
+    summary = summary / sum_pref
+
+    return math.floor(summary)
+
+
+def zeros_list():
+    help_list = [0] * 200
+    return help_list
+
+
+def sum_preferences():
+    sum_pref = Preferences.objects.all().count()
+    return sum_pref
+
+
+def pref_gender():
+    sum_all_user_preferences = sum_preferences()
+    help_list = [0] * 3
+
+    for x in range(sum_all_user_preferences):
+        get_pref = Preferences.objects.get(id=x + 1).sex
+
+        if get_pref == 'Man':
+            help_list[0] += 1
+        elif get_pref == 'Woman':
+            help_list[1] += 1
+        elif get_pref == 'Other':
+            help_list[2] += 1
+    if help_list[0] > help_list[1] and help_list[0] > help_list[2]:
+        return 'Man'
+    elif help_list[1] > help_list[0] and help_list[1] > help_list[2]:
+        return 'Woman'
+    elif help_list[2] > help_list[0] and help_list[2] > help_list[1]:
+        return 'Other'
+    elif help_list[0] == help_list[1]:
+        return 'Man and Woman'
+    elif help_list[0] == help_list[2]:
+        return 'Man and Other'
+    elif help_list[1] == help_list[2]:
+        return 'Woman and Other'
+    else:
+        return 'All genders are equal picked'
+
 

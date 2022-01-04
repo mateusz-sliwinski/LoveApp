@@ -12,13 +12,13 @@
               data-chartjs-tooltip="true"
 
               data-chartjs-title={% blocktrans %} "Simple Bar Charts" {% endblocktrans %}
-              data-chartjs-xaxes-label={% trans "Month" %}
-                      data-chartjs-yaxes-label= {% trans "Matched" %}
+              data-chartjs-xaxes-label={% trans "gender" %}
+                      data-chartjs-yaxes-label= {% trans "Count" %}
 
               data-chartjs-type="bar"
               data-chartjs-labels={% blocktrans %}'["Man","Woman","Other"]' {% endblocktrans %}
               data-chartjs-datasets='[{
-                  "label":{% blocktrans %} "Count of Matched", {% endblocktrans %}
+                  "label":{% blocktrans %} "Count of Gender", {% endblocktrans %}
               "data":[
                    {% for value in all_gender %}
                     {% if forloop.last %}
@@ -27,14 +27,11 @@
                            {{ value }},
                    {% endif %}
                    {% endfor %}],
-                  "backgroundColor":"rgba(3, 169, 244, 0.7)"
+                  "backgroundColor":"rgba(3, 1, 244, 0.7)"
               }]'
       ></canvas>
     </div>
   </div>
-
-
-
 
   <div class="row justify-content-center  ">
     <div class="col-6 high bg-white margin">
@@ -45,13 +42,13 @@
               data-chartjs-tooltip="true"
 
               data-chartjs-title={% blocktrans %} "Simple Bar Charts" {% endblocktrans %}
-              data-chartjs-xaxes-label={% trans "Month" %}
-                      data-chartjs-yaxes-label= {% trans "Matched" %}
+              data-chartjs-xaxes-label={% trans "Preferences" %}
+                      data-chartjs-yaxes-label= {% trans "Count" %}
 
               data-chartjs-type="bar"
               data-chartjs-labels={% blocktrans %}'["Netflix & Chill","Books","Going out for wine","Travels","Diner","Model bonding"]' {% endblocktrans %}
               data-chartjs-datasets='[{
-                  "label":{% blocktrans %} "Count of Matched", {% endblocktrans %}
+                  "label":{% blocktrans %} "Count of Preferences", {% endblocktrans %}
               "data":[
                    {% for value in preferences_users %}
                     {% if forloop.last %}
@@ -65,27 +62,12 @@
       ></canvas>
     </div>
   </div>
-
-  <div class="row justify-content-center  ">
-      <div class="col-6 high bg-white margin">
-        <canvas class="chartjs"
-                data-chartjs-title="Pie Chart"
-                data-chartjs-legend="left"
-                data-chartjs-tooltip="true"
-
-                data-chartjs-type="pie"
-                data-chartjs-datasets='[
-                      {% for key,value in age_min_min.items %}
-                    {% if forloop.last %}
-                       ["{{ key }}", {{ value.0 }}, "#{{ value.1 }}"]
-                     {% else %}
-                       ["{{ key }}", {{ value.0 }}, "#{{ value.1 }}"],
-                      {% endif %}
-                   {% endfor %}
-    	            ]'>
-        </canvas>
-      </div>
+  <div class="row justify-content-center">
+      <div class="col-2 width  bg-white ">
+        Average Age Min: {{ avg_age_min }} <br>
+        Average Age Max: {{ avg_age_max }} <br>
+        The most Preferences Gender:  {{ the_most_preferences_gender }}
     </div>
-
+  </div>
   <script src={% static "assets/js/core.min.js" %}></script>
 {% endblock %}
