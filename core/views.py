@@ -22,7 +22,7 @@ from core.utils import person_and_tags_for_like
 
 # Project
 from accounts.models import CustomUser, Preferences
-from accounts.utils import time_today
+from accounts.utils import time_today, summary_preferences
 
 # Local
 from .forms import MessageForm
@@ -213,7 +213,7 @@ class DashboardView(TemplateView):  # noqa D101
                                          '%06x' % random.randint(0, 0xFFFFFF)]}  # S001
 
         context['dates'] = pie_dict
-
+        print(context['dates'])
         # for single bar chart
 
         context['list_matched'] = DashboardMatched.objects.all().filter(
@@ -232,7 +232,7 @@ class DashboardView(TemplateView):  # noqa D101
 
 
 class DashboardAdminView(TemplateView):  # noqa D101
-    template_name = 'Dashboard_admin.html'
+    template_name = 'dashboard_admin.html'
 
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
@@ -242,14 +242,21 @@ class DashboardAdminView(TemplateView):  # noqa D101
             count=Count('id')
         )
 
+        dict_data = {i: 0 for i in range(1, 1)}
+        for data in context['count_all_gender']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['all_gender'] = list(dict_data.values())
+
         # most popular tags for user
-        context['preferences_users'] = Preferences.objects.all().values(
-            'custom_user__preferences__tags', 'age_max', 'age_min', 'sex'
-        ).annotate(
-            count=Count('id')
-        )
+        context['preferences_users'] = summary_preferences()
+
+
+
 
         # how many messages were sent in a current month
+
+
         context['all_message'] = Message.objects.all().annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('text_body')).order_by('month_data')
