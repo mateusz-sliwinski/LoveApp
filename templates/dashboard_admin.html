@@ -69,5 +69,99 @@
         The most Preferences Gender:  {{ the_most_preferences_gender }}
     </div>
   </div>
+      <div class="row justify-content-center ">
+    <div class="col-8 high bg-white">
+      <canvas id="MessageBarMultiple" class="chartjs"
+              data-chartjs-dots="false"
+              data-chartjs-legend="top"
+              data-chartjs-grid="true"
+              data-chartjs-tooltip="true"
+
+              data-chartjs-title="Multiple Bar Charts"
+              data-chartjs-xaxes-label="Month"
+              data-chartjs-yaxes-label="Message Woman vs Message Man"
+              data-chartjs-line-width="5"
+
+              data-chartjs-type="bar"
+              data-chartjs-labels='["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]'
+              data-chartjs-datasets='[{
+				"label": "Message Woman",
+				"data":[
+				{% for value in all_message_list_woman %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor": "rgba(3, 169, 244, 0.7)"
+		},{
+				"label": "Message Man",
+				"data":	[{% for value in all_message_list_man %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor": "rgba(255, 193, 7, 0.61)"
+		}]'
+      ></canvas>
+    </div>
+      </div>
+
+
+
+        <div class="row justify-content-center ">
+    <div class="col-8 high bg-white">
+      <canvas id="LikesBarMultiple" class="chartjs"
+              data-chartjs-dots="false"
+              data-chartjs-legend="top"
+              data-chartjs-grid="true"
+              data-chartjs-tooltip="true"
+
+              data-chartjs-title="Multiple Bar Charts"
+              data-chartjs-xaxes-label="Month"
+              data-chartjs-yaxes-label="Message Woman vs Message Man"
+              data-chartjs-line-width="5"
+
+              data-chartjs-type="bar"
+              data-chartjs-labels='["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]'
+              data-chartjs-datasets='[{
+				"label": "Like Woman",
+				"data":[
+				{% for value in all_like_list_woman %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor": "rgba(3, 169, 244, 0.7)"
+		},{
+				"label": "Like Man",
+				"data":	[{% for value in all_like_list_man %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor": "rgba(255, 193, 7, 0.61)"
+		},{
+				"label": "Like Other",
+				"data":	[{% for value in all_like_list_other %}
+                    {% if forloop.last %}
+                          {{ value }}
+                   {% else %}
+                           {{ value }},
+                   {% endif %}
+                   {% endfor %}],
+				"backgroundColor": "rgba(255, 193, 7, 0.61)"
+		}]'
+      ></canvas>
+    </div>
+      </div>
+
   <script src={% static "assets/js/core.min.js" %}></script>
 {% endblock %}

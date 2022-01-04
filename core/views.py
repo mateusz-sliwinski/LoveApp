@@ -259,27 +259,59 @@ class DashboardAdminView(TemplateView):  # noqa D101
 
         # how many messages were sent in a current month
 
-        context['all_message'] = Message.objects.all().annotate(
+        context['all_message_woman'] = Message.objects.all().filter(sender_user__sex='Woman').annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('text_body')).order_by('month_data')
 
         dict_data = {i: 0 for i in range(1, 13)}
-        for data in context['all_message']:
+        for data in context['all_message_woman']:
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
-        context['all_message_list'] = list(dict_data.values())
+        context['all_message_list_woman'] = list(dict_data.values())
 
-        # test all like
-        context['all_Like'] = Likes.objects.all().filter(
-            status='Matched', user_one__sex='Woman'
+        context['all_message_man'] = Message.objects.all().filter(sender_user__sex='Man').annotate(
+            month_data=Month('date')).values('month_data').annotate(
+            total=Count('text_body')).order_by('month_data')
+
+        dict_data = {i: 0 for i in range(1, 13)}
+        for data in context['all_message_man']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['all_message_list_man'] = list(dict_data.values())
+
+        # all like user
+        context['all_like_woman'] = Likes.objects.all().filter(
+            status='Liked', user_one__sex='Woman'
         ).annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('status')).order_by('month_data')
 
-        for data in context['all_Like']:
+        for data in context['all_like_woman']:
             month_value_pair = list(data.values())
             dict_data[month_value_pair[0]] = month_value_pair[1]
-        context['all_like_list'] = list(dict_data.values())
+        context['all_like_list_woman'] = list(dict_data.values())
+
+        context['all_like_man'] = Likes.objects.all().filter(
+            status='Liked', user_one__sex='Man'
+        ).annotate(
+            month_data=Month('date')).values('month_data').annotate(
+            total=Count('status')).order_by('month_data')
+
+        for data in context['all_like_man']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['all_like_list_man'] = list(dict_data.values())
+
+        context['all_Like_other'] = Likes.objects.all().filter(
+            status='Liked', user_one__sex='Other'
+        ).annotate(
+            month_data=Month('date')).values('month_data').annotate(
+            total=Count('status')).order_by('month_data')
+
+        for data in context['all_Like_other']:
+            month_value_pair = list(data.values())
+            dict_data[month_value_pair[0]] = month_value_pair[1]
+        context['all_like_list_other'] = list(dict_data.values())
 
         return context
 
