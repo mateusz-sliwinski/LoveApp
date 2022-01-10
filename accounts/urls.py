@@ -14,7 +14,7 @@ from accounts.views import PhotoView
 from accounts.views import PreferencesListView
 from accounts.views import PreferencesUpdateView
 from accounts.views import PreferencesView
-from accounts.views import test
+from accounts.views import PaymentView
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('photo/delete/<int:pk>', login_required(DeletePhotoView.as_view()), name='delete_photo'),
     path('accounts/profile/', login_required(HomeView.as_view()), name='home'),
     path('', login_required(HomeView.as_view()), name='home'),
-    path('pay', test.as_view(), name='pay'),
+    path('pay', PaymentView.as_view(), name='pay'),
 
     path('config/', views.stripe_config),
     path('create-checkout-session/', views.create_checkout_session),
