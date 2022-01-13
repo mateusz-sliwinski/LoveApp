@@ -114,6 +114,8 @@ input {
 }
 
 .overlay-container {
+    background: url("../images/love.png") no-repeat bottom;
+    border-left: 1px solid grey;
     position: absolute;
     top: 0;
     left: 50%;
@@ -125,10 +127,6 @@ input {
 }
 
 .overlay {
-    background: url("../images/doggo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 0 0;
     color: mediumvioletred;
     position: relative;
     left: -100%;

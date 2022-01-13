@@ -213,7 +213,6 @@ class DashboardView(TemplateView):  # noqa D101
                                          '%06x' % random.randint(0, 0xFFFFFF)]}  # S001
 
         context['dates'] = pie_dict
-        print(context['dates'])
         # for single bar chart
 
         context['list_matched'] = DashboardMatched.objects.all().filter(
