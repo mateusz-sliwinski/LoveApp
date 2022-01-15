@@ -5,11 +5,11 @@
 body {
     min-height: 100vh;
     overflow-x: hidden;
-    background: rgb(36,0,0);
-    background: linear-gradient(90deg, rgba(36,0,0,1) 0%, rgba(121,9,113,1) 35%, rgba(255,0,198,1) 100%);
+    background: rgb(0, 36, 33);
+    background: linear-gradient(90deg, rgba(0, 36, 33, 1) 0%, rgba(15, 168, 184, 1) 35%);
 }
 
-.image-star{
+.image-star {
     width: 28px;
     height: 28px;
     position: absolute;
@@ -17,11 +17,12 @@ body {
     top: 0;
 }
 
-.image-wrapper{
+.image-wrapper {
     position: relative;
     width: max-content;
 }
-.profile-image:not(:first-of-type){
+
+.profile-image:not(:first-of-type) {
     display: none;
 }
 
