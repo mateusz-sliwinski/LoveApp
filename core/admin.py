@@ -4,10 +4,11 @@
 from django.contrib import admin
 
 # 3rd-party
-from core.models import DashboardLike, Message
+from core.models import DashboardLike
 from core.models import DashboardMatched
 from core.models import DashboardMessage
 from core.models import Likes
+from core.models import Message
 from core.models import Thread
 
 

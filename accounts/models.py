@@ -51,7 +51,7 @@ class PhotoUser(models.Model):  # noqa D101
         verbose_name = 'Photo User'
         verbose_name_plural = 'Photo Users'
 
-    def save(self, *args, **kwargs): # noqa D102
+    def save(self, *args, **kwargs):  # noqa D102
         super().save(*args, **kwargs)
         img = Image.open(self.photo.path)
 
@@ -64,7 +64,7 @@ class PhotoUser(models.Model):  # noqa D101
         return f'{self.custom_user.first_name} {self.custom_user.last_name} {self.photo}'
 
 
-class Preferences(models.Model): # noqa D101
+class Preferences(models.Model):  # noqa D101
 
     age_min = models.IntegerField(
         default=18,
@@ -94,5 +94,5 @@ class Preferences(models.Model): # noqa D101
         verbose_name = 'Preference'
         verbose_name_plural = 'Preferences'
 
-    def __str__(self): # noqa D105
+    def __str__(self):  # noqa D105
         return f'{self.tags} {self.age_min} {self.age_max} {self.sex}'

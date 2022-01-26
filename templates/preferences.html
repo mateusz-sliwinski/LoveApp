@@ -16,13 +16,13 @@
       <div class="bg-white shadow rounded overflow-hidden">
         <div class="px-4 pt-0 pb-4 bg-dark">
 
-            <div class="container pt-5">
-              <form method="POST">
-                {% csrf_token %}
-                <div class="p-4 bg-dark rounded shadow-sm text-muted">  {{ form.as_p }}</div>
+          <div class="container pt-5">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="p-4 bg-dark rounded shadow-sm text-muted">  {{ form.as_p }}</div>
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
 
           </div>

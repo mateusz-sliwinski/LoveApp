@@ -7,8 +7,8 @@ from django.urls import path
 # Local
 from .views import CreateMessage
 from .views import CreateThread
-from .views import DashboardView
 from .views import DashboardAdminView
+from .views import DashboardView
 from .views import ListThreads
 from .views import RandomPartner
 from .views import RandomPartnerList
@@ -27,6 +27,5 @@ urlpatterns = [
 
     path('dashboard/', login_required(DashboardView.as_view()), name='dashboard_user'),
     path('dashboard/admin', login_required(DashboardAdminView.as_view()), name='dashboard_admin'),
-
 
 ]

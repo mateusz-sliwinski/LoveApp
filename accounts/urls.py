@@ -10,11 +10,11 @@ from accounts.views import DeletePhotoView
 from accounts.views import DetailPhotoView
 from accounts.views import HomeView
 from accounts.views import ListPhotoView
+from accounts.views import PaymentView
 from accounts.views import PhotoView
 from accounts.views import PreferencesListView
 from accounts.views import PreferencesUpdateView
 from accounts.views import PreferencesView
-from accounts.views import PaymentView
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),

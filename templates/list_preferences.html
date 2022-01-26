@@ -13,17 +13,17 @@
         <div class="px-4 pt-0 pb-4 bg-dark">
 
           <div class="container pt-5">
-          <div class="p-4 bg-dark rounded shadow-sm text-white">
-            {% for data in data_preferences %}
+            <div class="p-4 bg-dark rounded shadow-sm text-white">
+              {% for data in data_preferences %}
 
-              {{ data.age_min }}<br/>
-              {{ data.age_max }}<br/>
-              {{ data.tags }}<br/>
-              {{ data.sex }}<br/>
-              <hr/>
-              <a style="color:white !important;" href="{% url 'preference_update' data.id %}">update</a>
-            {% endfor %}
-          </div>
+                {{ data.age_min }}<br/>
+                {{ data.age_max }}<br/>
+                {{ data.tags }}<br/>
+                {{ data.sex }}<br/>
+                <hr/>
+                <a style="color:white !important;" href="{% url 'preference_update' data.id %}">update</a>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>

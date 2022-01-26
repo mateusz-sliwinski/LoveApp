@@ -3,10 +3,9 @@
 import random
 
 # Django
-from django.utils import timezone
-
 from django.db import models
-from django.db.models import Func, Count
+from django.db.models import Count
+from django.db.models import Func
 from django.db.models import Q
 from django.db.models import Sum
 from django.http import HttpResponse
@@ -21,15 +20,20 @@ from django.views.generic import TemplateView
 from core.utils import person_and_tags_for_like
 
 # Project
-from accounts.models import CustomUser, Preferences
-from accounts.utils import time_today, summary_preferences, pref_age_min, pref_age_max, pref_gender
+from accounts.models import CustomUser
+from accounts.utils import pref_age_max
+from accounts.utils import pref_age_min
+from accounts.utils import pref_gender
+from accounts.utils import summary_preferences
+from accounts.utils import time_today
 
 # Local
 from .forms import MessageForm
 from .forms import ThreadForm
-from .models import DashboardLike, Likes
+from .models import DashboardLike
 from .models import DashboardMatched
 from .models import DashboardMessage
+from .models import Likes
 from .models import Message
 from .models import Thread
 from .utils import person_and_tags
@@ -195,8 +199,6 @@ class DashboardView(TemplateView):  # noqa D101
             dict_data[month_value_pair[0]] = month_value_pair[1]
         context['dislike_list'] = list(dict_data.values())
 
-        # for pie chart data
-
         context['data_send'] = DashboardMessage.objects.all().filter(
             custom_user=current_user).aggregate(
             total=Sum('count_message_send'),
@@ -208,12 +210,11 @@ class DashboardView(TemplateView):  # noqa D101
         )
 
         pie_dict = {'message_send': [list(context['data_send'].values())[0],
-                                     '%06x' % random.randint(0, 0xFFFFFF)],  # S001
+                                     '%06x' % random.randint(0, 0xFFFFFF)],  # noqa S001
                     'message_received': [list(context['data_received'].values())[0],
-                                         '%06x' % random.randint(0, 0xFFFFFF)]}  # S001
+                                         '%06x' % random.randint(0, 0xFFFFFF)]}  # noqa S001
 
         context['dates'] = pie_dict
-        # for single bar chart
 
         context['list_matched'] = DashboardMatched.objects.all().filter(
             Q(custom_user=current_user) | Q(custom_user2=current_user),
@@ -236,9 +237,8 @@ class DashboardAdminView(TemplateView):  # noqa D101
     def get_context_data(self, **kwargs):  # noqa D102
         context = super().get_context_data(**kwargs)
 
-        # Gender of the users - summary
         context['count_all_gender'] = CustomUser.objects.all().values('sex').annotate(
-            count=Count('id')
+            count=Count('id'),
         )
 
         dict_data = {i: 0 for i in range(1, 1)}
@@ -247,7 +247,6 @@ class DashboardAdminView(TemplateView):  # noqa D101
             dict_data[month_value_pair[0]] = month_value_pair[1]
         context['all_gender'] = list(dict_data.values())
 
-        # most popular tags for user
         context['preferences_users'] = summary_preferences()
 
         context['avg_age_min'] = pref_age_min()
@@ -256,9 +255,8 @@ class DashboardAdminView(TemplateView):  # noqa D101
 
         context['the_most_preferences_gender'] = pref_gender()
 
-        # how many messages were sent in a current month
-
-        context['all_message_woman'] = Message.objects.all().filter(sender_user__sex='Woman').annotate(
+        context['all_message_woman'] = Message.objects.all().filter(
+            sender_user__sex='Woman').annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('text_body')).order_by('month_data')
 
@@ -278,9 +276,8 @@ class DashboardAdminView(TemplateView):  # noqa D101
             dict_data[month_value_pair[0]] = month_value_pair[1]
         context['all_message_list_man'] = list(dict_data.values())
 
-        # all like user
         context['all_like_woman'] = Likes.objects.all().filter(
-            status='Liked', user_one__sex='Woman'
+            status='Liked', user_one__sex='Woman',
         ).annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('status')).order_by('month_data')
@@ -291,7 +288,7 @@ class DashboardAdminView(TemplateView):  # noqa D101
         context['all_like_list_woman'] = list(dict_data.values())
 
         context['all_like_man'] = Likes.objects.all().filter(
-            status='Liked', user_one__sex='Man'
+            status='Liked', user_one__sex='Man',
         ).annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('status')).order_by('month_data')
@@ -302,7 +299,7 @@ class DashboardAdminView(TemplateView):  # noqa D101
         context['all_like_list_man'] = list(dict_data.values())
 
         context['all_Like_other'] = Likes.objects.all().filter(
-            status='Liked', user_one__sex='Other'
+            status='Liked', user_one__sex='Other',
         ).annotate(
             month_data=Month('date')).values('month_data').annotate(
             total=Count('status')).order_by('month_data')

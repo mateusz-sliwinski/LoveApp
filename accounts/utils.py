@@ -9,9 +9,9 @@ from django.core.exceptions import ValidationError
 
 # 3rd-party
 from dateutil.relativedelta import relativedelta
-from django.db.models import Count
 
-from accounts.models import CustomUser, Preferences
+# Project
+from accounts.models import Preferences
 
 
 def time_today():  # noqa D103
@@ -43,7 +43,7 @@ def take_id_from_path(full_path):  # noqa D103
     return right_id[0]
 
 
-def summary_preferences():
+def summary_preferences():  # noqa D103
     sum_pref = Preferences.objects.all().count()
     help_list = [0] * 6
     for x in range(sum_pref):
@@ -66,7 +66,7 @@ def summary_preferences():
     return help_list
 
 
-def pref_age_min():
+def pref_age_min():  # noqa D103
     sum_pref = Preferences.objects.all().count()
     help_list = [0] * 200
     summary = 0
@@ -83,7 +83,7 @@ def pref_age_min():
     return math.floor(summary)
 
 
-def pref_age_max():
+def pref_age_max():  # noqa D103
     sum_pref = sum_preferences()
     help_list = zeros_list()
 
@@ -100,17 +100,17 @@ def pref_age_max():
     return math.floor(summary)
 
 
-def zeros_list():
+def zeros_list():  # noqa D103
     help_list = [0] * 200
     return help_list
 
 
-def sum_preferences():
+def sum_preferences():  # noqa D103
     sum_pref = Preferences.objects.all().count()
     return sum_pref
 
 
-def pref_gender():
+def pref_gender():  # noqa D103
     sum_all_user_preferences = sum_preferences()
     help_list = [0] * 3
 
@@ -137,5 +137,3 @@ def pref_gender():
         return 'Woman and Other'
     else:
         return 'All genders are equal picked'
-
-

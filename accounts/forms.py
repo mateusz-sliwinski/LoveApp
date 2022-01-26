@@ -82,11 +82,11 @@ class MySignUpForm(SignupForm):  # noqa D101
         return user
 
 
-class PreferencesForm(forms.ModelForm): # noqa D101
-    class Meta: # noqa D106
+class PreferencesForm(forms.ModelForm):  # noqa D101
+    class Meta:  # noqa D106
         model = Preferences
         labels = {
-            "sex": "What gender do you like?"
+            'sex': 'What gender do you like?',
         }
         fields = [
             'age_min',
@@ -96,5 +96,5 @@ class PreferencesForm(forms.ModelForm): # noqa D101
         ]
 
 
-class PhotoForm(forms.Form): # noqa D101
+class PhotoForm(forms.Form):  # noqa D101
     photo = forms.ImageField(required=False)
